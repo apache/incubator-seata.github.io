@@ -1,0 +1,5 @@
+<html>
+  <head>
+    <meta name="go-import" content="seata.apache.org/seata-go git https://github.com/apache/incubator-seata-go">
+  </head>
+</html>
