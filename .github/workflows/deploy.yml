@@ -20,7 +20,7 @@ jobs:
           node-version: 19.5.x
       - name: Build
         run: |
-          npm install && npm run build && mkdir -p deploy-dist && cp -R build/* deploy-dist/ && mv build .htaccess .asf.yaml *.txt *.html deploy-dist/
+          npm install && npm run build && mkdir -p deploy-dist && cp -R build/* deploy-dist/ && mv build .htaccess .asf.yaml *.txt *.html seata-go* deploy-dist/
       - name:
           generate sitemap.xml and site.txt
           # The new generated sitemap for the index form,

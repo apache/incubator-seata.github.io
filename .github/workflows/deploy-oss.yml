@@ -21,7 +21,7 @@ jobs:
         run: |
           npm install && npm run build
           mkdir deploy-dist && cp -R build/* deploy-dist/
-          mv .htaccess .asf.yaml *.txt *.html deploy-dist/
+          mv .htaccess .asf.yaml *.txt *.html seata-go* deploy-dist/
       - name: generate sitemap.xml and site.txt
         # The new generated sitemap for the index form,
         # in order to ensure consistency with the old version,
