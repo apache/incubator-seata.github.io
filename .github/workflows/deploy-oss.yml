@@ -42,6 +42,6 @@ jobs:
       - name: Install serverless-devs
         run: npm i @serverless-devs/s@2.2.2 -g  --registry=https://registry.npmmirror.com
       - name: Config serverless-devs
-        run: s config add --AccountID ${{secrets.ACCOUNT_ID}}  --AccessKeyID ${{secrets.ACCESS_KEYID}} --AccessKeySecret ${{secrets.ACCESS_KEYSECRET}} -a seata -f
+        run: s config add --AccountId ${{secrets.ACCOUNT_ID}}  --AccessKeyId ${{secrets.ACCESS_KEYID}} --AccessKeySecret ${{secrets.ACCESS_KEYSECRET}} -a seata -f
       - name: Deploy on OSS
         run: s deploy --use-local -y
