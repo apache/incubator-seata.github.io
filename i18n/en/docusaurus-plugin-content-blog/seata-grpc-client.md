@@ -28,12 +28,12 @@ libprotoc 3.21.0
 ## Deploy and Start Seata Server
 Run org.apache.seata.server.ServerApplication#main as shown below:
 
-![Image](https://cdn.nlark.com/yuque/0/2024/png/27793252/1732961496707-450ff070-1dd1-4679-a6b0-3d1828739f87.png)
+![2024121301.png](../../../static/img/blog/2024121301.png)
 
 ## Proto File Import
 Import the necessary proto files for the transaction process in the Go project, including various transaction request and response proto files and the proto files for initiating RPC. As shown below:
 
-![Image](https://cdn.nlark.com/yuque/0/2024/png/27793252/1732962643765-c1af8873-edd5-4d89-a2e8-7e9180e29adb.png)
+![2024121302.png](../../../static/img/blog/2024121302.png)
 
 ## Grpc File Generation
 In the directory where the proto files were imported in the previous step, execute the command:
@@ -44,7 +44,7 @@ protoc --go_out=. --go-grpc_out=. .\*.proto
 
 After execution, the grpc code will be generated as shown below:
 
-![Image](https://cdn.nlark.com/yuque/0/2024/png/27793252/1732962814990-49ed0093-edde-4233-a012-171470f49441.png)
+![2024121303.png](../../../static/img/blog/2024121303.png)
 
 ## Grpc Invocation
 Complete a distributed transaction process in main.go and print the response from Seata Server. The code is as follows:
@@ -75,11 +75,11 @@ func main() {
 
 After running, the Seata Server console prints as follows:
 
-![Image](https://cdn.nlark.com/yuque/0/2024/png/27793252/1732963161340-80cf5aa0-2a84-46a2-92ef-2888b8312ce9.png)
+![2024121304.png](../../../static/img/blog/2024121304.png)
 
 The Go client console prints as follows:
 
-![Image](https://cdn.nlark.com/yuque/0/2024/png/27793252/1732963180213-4825476a-ca3d-477c-a924-cbfb1335ba9f.png)
+![2024121305.png](../../../static/img/blog/2024121305.png)
 
 # Implementation Principle
 ## Proto Design
@@ -110,7 +110,7 @@ In addition, GrpcSerializer is defined, adapting to Seata's serialization SPI sy
 ## Grpc Protocol Recognition
 Seata Server implements ProtocolDetectHandler and ProtocolDetector. ProtocolDetectHandler, as a ByteToMessageDecoder, will traverse the ProtocolDetector list when receiving a message to find a ProtocolDetector that can recognize the current message. ProtocolDetector distinguishes Seata protocols, Http1.1 protocols, and Http2 protocols through recognizing magic numbers. Once recognized, the ChannelHandler capable of handling the protocol is added to the current Channel's Pipeline.
 
-![Whiteboard](https://cdn.nlark.com/yuque/0/2024/jpeg/27793252/1727442115365-ed80b571-801e-4049-a860-ec1f8f8dcbd6.jpeg)
+![2024121306.jpeg](../../../static/img/blog/2024121306.jpeg)
 
 ## Grpc Request Sending and Processing
 Seata Server implements GrpcEncoder and GrpcDecoder. GrpcEncoder is responsible for converting Seata's RpcMessage into GrpcMessageProto recognizable by grpc native clients, filling the header with status, contentType, and other protocol headers for communication with grpc native clients. GrpcEncoder also adapts to grpc protocol specifications, writing the compression bit, length, and message body in the order specified by the grpc protocol into the channel.

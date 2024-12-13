@@ -28,12 +28,12 @@ libprotoc 3.21.0
 ## 部署并启动 Seata Server
 运行 org.apache.seata.server.ServerApplication#main，如下所示
 
-![](https://cdn.nlark.com/yuque/0/2024/png/27793252/1732961496707-450ff070-1dd1-4679-a6b0-3d1828739f87.png)
+![2024121301.png](../../../static/img/blog/2024121301.png)
 
 ## proto文件导入
 在go项目中导入完成本次事务流程所需的proto文件，包括各类事务请求和响应的proto文件和发起RPC的proto文件。如下所示
 
-![](https://cdn.nlark.com/yuque/0/2024/png/27793252/1732962643765-c1af8873-edd5-4d89-a2e8-7e9180e29adb.png)
+![2024121302.png](../../../static/img/blog/2024121302.png)
 
 ## grpc相关文件生成
 在上一步导入的proto文件目录下，执行命令
@@ -44,7 +44,7 @@ libprotoc 3.21.0
 
 执行完后会生成grpc代码，如下所示
 
-![](https://cdn.nlark.com/yuque/0/2024/png/27793252/1732962814990-49ed0093-edde-4233-a012-171470f49441.png)
+![2024121303.png](../../../static/img/blog/2024121303.png)
 
 ## grpc调用
 在main.go中完成一次分布式事务的流程，并打印Seata Server的响应，代码如下所示
@@ -152,11 +152,11 @@ func sendMessage(stream grpc.BidiStreamingClient[pb.GrpcMessageProto, pb.GrpcMes
 
 运行后，Seata Server控制台打印如下
 
-![](https://cdn.nlark.com/yuque/0/2024/png/27793252/1732963161340-80cf5aa0-2a84-46a2-92ef-2888b8312ce9.png)
+![2024121304.png](../../../static/img/blog/2024121304.png)
 
 Go客户端控制台打印如下
 
-![](https://cdn.nlark.com/yuque/0/2024/png/27793252/1732963180213-4825476a-ca3d-477c-a924-cbfb1335ba9f.png)
+![2024121305.png](../../../static/img/blog/2024121305.png)
 
 # 实现原理
 ## proto设计
@@ -187,7 +187,7 @@ service SeataService {
 ## grpc协议识别
 Seata Server实现了ProtocolDetectHandler和ProtocolDetector。ProtocolDetectHandler作为ByteToMessageDecoder，在收到消息时，会遍历ProtocolDetector列表寻找能够识别当前消息的ProtocolDetector，ProtocolDetector通过识别魔数的方式区分Seata协议，Http1.1协议，Http2协议，一旦识别成功，会将能够处理该协议的ChannelHandler加入到当前Channel的Pipeline中
 
-![画板](https://cdn.nlark.com/yuque/0/2024/jpeg/27793252/1727442115365-ed80b571-801e-4049-a860-ec1f8f8dcbd6.jpeg)
+![2024121306.jpeg](../../../static/img/blog/2024121306.jpeg)
 
 ## grpc请求发送与处理
 Seata Server 实现了GrpcEncoder和GrpcDecoder，GrpcEncoder负责将Seata的RpcMessage转换为grpc原生客户端可识别的GrpcMessageProto，并在header中填充status，contentType等协议头用于与grpc原生客户端通信。GrpcEncoder还负责适配grpc协议规范，将压缩位、长度、消息体按照grpc协议约定的顺序写入channel
