@@ -56,7 +56,7 @@ requirements, you may not be able to deploy Seata-Server on your device.
 1. Seata version maintenance policy, please refer to the [version maintenance document](/docs/ops/version-maintain-plan)
    , please upgrade the lower version to the current maintenance version as soon as possible. For version upgrade,
    please refer to the [upgrade guide](/docs/ops/upgrade)
-2. For more release history downloads, please refer to [Release History](/unversioned/release-history/seata-server)
+2. For more release history downloads, please refer to [Release History](/release-history/seata-server)
 
 ## Snapshot Version
 

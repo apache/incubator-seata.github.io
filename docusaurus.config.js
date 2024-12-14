@@ -100,7 +100,7 @@ const config = {
       ({
         id: 'unversioned',
         path: 'unversioned',
-        routeBasePath: '/unversioned',
+        routeBasePath: '/',
         sidebarPath: require.resolve('./sidebarsUnversioned.js'),
         editUrl:
           'https://github.com/apache/incubator-seata-website/blob/docusaurus/',
@@ -196,7 +196,7 @@ const config = {
           },
           {
             label: 'Download',
-            to: '/unversioned/download/seata-server',
+            to: '/download/seata-server',
             position: 'right',
           },
           {

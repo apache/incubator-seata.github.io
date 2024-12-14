@@ -555,7 +555,7 @@ The Apache Seata(Incubating) vx.x.x has been released!
 
 Apache Seata is an easy-to-use, high-performance, open source distributed transaction solution.
 
-Download Links: https://seata.apache.org/unversioned/download/seata-server/
+Download Links: https://seata.apache.org/download/seata-server/
 
 Release Notes:
 https://github.com/apache/incubator-seata/releases/tag/vx.x.x/

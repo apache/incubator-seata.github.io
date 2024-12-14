@@ -21,9 +21,9 @@ date: 2019/11/29
 
 # 准备工作
 
-1.首先安装mysql,eclipse之类常用的工具,这不展开了. 
+1.首先安装mysql,eclipse之类常用的工具,这不展开了.
 
-2.访问seata下载中心[地址](/unversioned/download/seata-server)我们使用的0.9.0版本
+2.访问seata下载中心[地址](/download/seata-server)我们使用的0.9.0版本
 
 3.下载并解压seata-server
 
@@ -228,7 +228,7 @@ CREATE TABLE `undo_log` (
 
  4.再次找到其中的db配置方法块,更改方法如下图:![](/img/blog/20191129133111.png)
 
-好了,可以到bin目录去./seata-server.bat 运行看看了 
+好了,可以到bin目录去./seata-server.bat 运行看看了
 
 # 创建项目
 
@@ -278,7 +278,7 @@ CREATE TABLE `undo_log` (
 			<artifactId>fastjson</artifactId>
 			<version>1.2.60</version>
 		</dependency>
-		<!-- <dependency> <groupId>javax</groupId> <artifactId>javaee-api</artifactId> 
+		<!-- <dependency> <groupId>javax</groupId> <artifactId>javaee-api</artifactId>
 			<version>7.0</version> <scope>provided</scope> </dependency> -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -290,7 +290,7 @@ CREATE TABLE `undo_log` (
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
- 
+
 		<!-- mybatis-plus begin -->
 		<dependency>
 			<groupId>com.baomidou</groupId>
@@ -321,10 +321,10 @@ CREATE TABLE `undo_log` (
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- <dependency> <groupId>com.baomidou</groupId> <artifactId>dynamic-datasource-spring-boot-starter</artifactId> 
+		<!-- <dependency> <groupId>com.baomidou</groupId> <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
 			<version>2.5.4</version> </dependency> -->
- 
-		<!-- <dependency> <groupId>com.baomidou</groupId> <artifactId>mybatis-plus-generator</artifactId> 
+
+		<!-- <dependency> <groupId>com.baomidou</groupId> <artifactId>mybatis-plus-generator</artifactId>
 			<version>3.1.0</version> </dependency> -->
 		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
 		<dependency>
@@ -374,7 +374,7 @@ CREATE TABLE `undo_log` (
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency> <groupId>org.scala-lang</groupId> <artifactId>scala-library</artifactId> 
+		<!-- <dependency> <groupId>org.scala-lang</groupId> <artifactId>scala-library</artifactId>
 			<version>2.11.0</version> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -397,12 +397,12 @@ CREATE TABLE `undo_log` (
 
 ```java
 package org.test;
- 
+
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.Properties;
 import java.util.UUID;
- 
+
 import org.apache.zookeeper.server.ServerConfig;
 import org.apache.zookeeper.server.ZooKeeperServerMain;
 import org.apache.zookeeper.server.quorum.QuorumPeerConfig;
@@ -411,66 +411,66 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.util.ErrorHandler;
 import org.springframework.util.SocketUtils;
- 
+
 /**
  * from:
  * https://github.com/spring-projects/spring-xd/blob/v1.3.1.RELEASE/spring-xd-dirt/src/main/java/org/springframework/xd/dirt/zookeeper/ZooKeeperUtils.java
- * 
+ *
  * Helper class to start an embedded instance of standalone (non clustered) ZooKeeper.
- * 
+ *
  * NOTE: at least an external standalone server (if not an ensemble) are recommended, even for
  * {@link org.springframework.xd.dirt.server.singlenode.SingleNodeApplication}
- * 
+ *
  * @author Patrick Peralta
  * @author Mark Fisher
  * @author David Turanski
  */
 public class EmbeddedZooKeeper implements SmartLifecycle {
- 
+
     /**
      * Logger.
      */
     private static final Logger logger = LoggerFactory.getLogger(EmbeddedZooKeeper.class);
- 
+
     /**
      * ZooKeeper client port. This will be determined dynamically upon startup.
      */
     private final int clientPort;
- 
+
     /**
      * Whether to auto-start. Default is true.
      */
     private boolean autoStartup = true;
- 
+
     /**
      * Lifecycle phase. Default is 0.
      */
     private int phase = 0;
- 
+
     /**
      * Thread for running the ZooKeeper server.
      */
     private volatile Thread zkServerThread;
- 
+
     /**
      * ZooKeeper server.
      */
     private volatile ZooKeeperServerMain zkServer;
- 
+
     /**
      * {@link ErrorHandler} to be invoked if an Exception is thrown from the ZooKeeper server thread.
      */
     private ErrorHandler errorHandler;
- 
+
     private boolean daemon = true;
- 
+
     /**
      * Construct an EmbeddedZooKeeper with a random port.
      */
     public EmbeddedZooKeeper() {
         clientPort = SocketUtils.findAvailableTcpPort();
     }
- 
+
     /**
      * Construct an EmbeddedZooKeeper with the provided port.
      *
@@ -481,57 +481,57 @@ public class EmbeddedZooKeeper implements SmartLifecycle {
         this.clientPort = clientPort;
         this.daemon = daemon;
     }
- 
+
     /**
      * Returns the port that clients should use to connect to this embedded server.
-     * 
+     *
      * @return dynamically determined client port
      */
     public int getClientPort() {
         return this.clientPort;
     }
- 
+
     /**
      * Specify whether to start automatically. Default is true.
-     * 
+     *
      * @param autoStartup
      *            whether to start automatically
      */
     public void setAutoStartup(boolean autoStartup) {
         this.autoStartup = autoStartup;
     }
- 
+
     /**
      * {@inheritDoc}
      */
     public boolean isAutoStartup() {
         return this.autoStartup;
     }
- 
+
     /**
      * Specify the lifecycle phase for the embedded server.
-     * 
+     *
      * @param phase
      *            the lifecycle phase
      */
     public void setPhase(int phase) {
         this.phase = phase;
     }
- 
+
     /**
      * {@inheritDoc}
      */
     public int getPhase() {
         return this.phase;
     }
- 
+
     /**
      * {@inheritDoc}
      */
     public boolean isRunning() {
         return (zkServerThread != null);
     }
- 
+
     /**
      * Start the ZooKeeper server in a background thread.
      * <p>
@@ -545,7 +545,7 @@ public class EmbeddedZooKeeper implements SmartLifecycle {
             zkServerThread.start();
         }
     }
- 
+
     /**
      * Shutdown the ZooKeeper server.
      */
@@ -559,11 +559,11 @@ public class EmbeddedZooKeeper implements SmartLifecycle {
                 shutdown.setAccessible(true);
                 shutdown.invoke(zkServer);
             }
- 
+
             catch (Exception e) {
                 throw new RuntimeException(e);
             }
- 
+
             // It is expected that the thread will exit after
             // the server is shutdown; this will block until
             // the shutdown is complete.
@@ -578,7 +578,7 @@ public class EmbeddedZooKeeper implements SmartLifecycle {
             }
         }
     }
- 
+
     /**
      * Stop the server if running and invoke the callback when complete.
      */
@@ -586,23 +586,23 @@ public class EmbeddedZooKeeper implements SmartLifecycle {
         stop();
         callback.run();
     }
- 
+
     /**
      * Provide an {@link ErrorHandler} to be invoked if an Exception is thrown from the ZooKeeper server thread. If none
      * is provided, only error-level logging will occur.
-     * 
+     *
      * @param errorHandler
      *            the {@link ErrorHandler} to be invoked
      */
     public void setErrorHandler(ErrorHandler errorHandler) {
         this.errorHandler = errorHandler;
     }
- 
+
     /**
      * Runnable implementation that starts the ZooKeeper server.
      */
     private class ServerRunnable implements Runnable {
- 
+
         public void run() {
             try {
                 Properties properties = new Properties();
@@ -610,14 +610,14 @@ public class EmbeddedZooKeeper implements SmartLifecycle {
                 file.deleteOnExit();
                 properties.setProperty("dataDir", file.getAbsolutePath());
                 properties.setProperty("clientPort", String.valueOf(clientPort));
- 
+
                 QuorumPeerConfig quorumPeerConfig = new QuorumPeerConfig();
                 quorumPeerConfig.parseProperties(properties);
- 
+
                 zkServer = new ZooKeeperServerMain();
                 ServerConfig configuration = new ServerConfig();
                 configuration.readFrom(quorumPeerConfig);
- 
+
                 zkServer.runFromConfig(configuration);
             } catch (Exception e) {
                 if (errorHandler != null) {
@@ -628,22 +628,22 @@ public class EmbeddedZooKeeper implements SmartLifecycle {
             }
         }
     }
- 
+
 }
 
 ```
 
 ```java
 package org.test;
- 
+
 import org.apache.dubbo.config.spring.context.annotation.DubboComponentScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
- 
+
 /**
- * 
+ *
  * @author cjb
  * @date 2019/10/24
  */
@@ -652,13 +652,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @DubboComponentScan(basePackages = "org.test.service.impl")
 @SpringBootApplication
 public class ProviderApplication {
- 
+
     public static void main(String[] args) {
         new EmbeddedZooKeeper(2181, false).start();
         SpringApplication app = new SpringApplication(ProviderApplication.class);
         app.run(args);
     }
- 
+
 }
 
 ```
@@ -667,20 +667,20 @@ public class ProviderApplication {
 
 ```java
 package org.test.entity;
- 
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
- 
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
- 
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
- 
+
 /**
  * <p>
  * 功能
@@ -694,25 +694,25 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ApiModel(value = "test对象", description = "功能")
 public class Test implements Serializable {
- 
+
     private static final long serialVersionUID = 1L;
- 
+
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
- 
+
     @ApiModelProperty(value = "one")
     @TableField("one")
     private String one;
- 
+
     @ApiModelProperty(value = "two")
     @TableField("two")
     private String two;
- 
+
     @ApiModelProperty(value = "createTime")
     @TableField("createTime")
     private LocalDateTime createTime;
- 
+
 }
 
 ```
@@ -721,11 +721,11 @@ public class Test implements Serializable {
 
 ```java
 package org.test.service;
- 
+
 import org.test.entity.Test;
- 
-import com.baomidou.mybatisplus.extension.service.IService; 
- 
+
+import com.baomidou.mybatisplus.extension.service.IService;
+
 /**
  * <p>
  * 功能 服务类
@@ -735,38 +735,38 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-04-10
  */
 public interface ITestService extends IService<Test> {
- 
+
 }
 
 ```
 
 ```java
 package org.test.service.impl;
- 
- 
- 
- 
+
+
+
+
 import org.apache.dubbo.config.annotation.Service;
 import org.test.entity.Test;
 import org.test.mapper.TestMapper;
 import org.test.service.ITestService;
- 
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
- 
+
 @Service(version = "1.0.0",interfaceClass =ITestService.class )
 public class TestServiceImpl extends ServiceImpl<TestMapper, Test> implements ITestService {
- 
+
 }
 
 ```
 
 ```java
 package org.test.mapper;
- 
-import org.test.entity.Test; 
- 
+
+import org.test.entity.Test;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
- 
+
 /**
  * <p>
  * 功能 Mapper 接口
@@ -776,12 +776,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2019-04-10
  */
 public interface TestMapper extends BaseMapper<Test> {
- 
+
 }
 
 ```
 
- 	创建org.test.config包,创建SeataAutoConfig.java,配置信息都在此处,主要作用为代理数据,连接事务服务分组 
+ 	创建org.test.config包,创建SeataAutoConfig.java,配置信息都在此处,主要作用为代理数据,连接事务服务分组
 
 ```java
 package org.test.config;
@@ -835,7 +835,7 @@ public class SeataAutoConfig {
 
 	/**
 	 * init datasource proxy
-	 * 
+	 *
 	 * @Param: druidDataSource datasource bean instance
 	 * @Return: DataSourceProxy datasource proxy
 	 */
@@ -859,27 +859,27 @@ public class SeataAutoConfig {
 }
 ```
 
- 	再创建mybatisplus所需的配置文件MybatisPlusConfig  
+ 	再创建mybatisplus所需的配置文件MybatisPlusConfig
 
 ```java
 package org.test.config;
- 
+
 import java.util.ArrayList;
 import java.util.List;
- 
+
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
- 
+
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
- 
+
 @Configuration
 // @MapperScan("com.baomidou.springboot.mapper*")//这个注解，作用相当于下面的@Bean
 // MapperScannerConfigurer，2者配置1份即可
 public class MybatisPlusConfig {
- 
+
     /**
      * mybatis-plus分页插件<br>
      * 文档：http://mp.baomidou.com<br>
@@ -893,29 +893,29 @@ public class MybatisPlusConfig {
         paginationInterceptor.setSqlParserList(sqlParserList);
         return paginationInterceptor;
     }
- 
+
     /**
      * 相当于顶部的： {@code @MapperScan("com.baomidou.springboot.mapper*")} 这里可以扩展，比如使用配置文件来配置扫描Mapper的路径
      */
- 
+
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer scannerConfigurer = new MapperScannerConfigurer();
         scannerConfigurer.setBasePackage("org.test.mapper");
         return scannerConfigurer;
     }
- 
+
 }
 
 ```
 
-​	 再创建**resources目录,创建mapper文件夹,application.yml等文件** 
+​	 再创建**resources目录,创建mapper文件夹,application.yml等文件**
 
 ```yaml
 server:
   port: 38888
 spring:
-  application: 
+  application:
       name: test-service
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -945,12 +945,12 @@ mybatis-plus:
       db-type: mysql
   configuration:
     map-underscore-to-camel-case: true
-    cache-enabled: true      
+    cache-enabled: true
     auto-mapping-unknown-column-behavior: none
 
 ```
 
-​	 创建file.conf,此处的service 内的vgroup_mapping.你的事务分组,比如上**面SeataAutoConfig内配置了test-group,那么这里也要改为test-group**,然后下面ip端口都是seata运行的ip跟端口就行了 
+​	 创建file.conf,此处的service 内的vgroup_mapping.你的事务分组,比如上**面SeataAutoConfig内配置了test-group,那么这里也要改为test-group**,然后下面ip端口都是seata运行的ip跟端口就行了
 
 ```java
 transport {
@@ -982,7 +982,7 @@ service {
   max.commit.retry.timeout = "-1"
   max.rollback.retry.timeout = "-1"
 }
- 
+
 client {
   async.commit.buffer.limit = 10000
   lock {
@@ -994,14 +994,14 @@ client {
   tm.rollback.retry.count = 1
   undo.log.table = "undo_log"
 }
- 
+
 recovery {
   committing-retry-period = 1000
   asyn-committing-retry-period = 1000
   rollbacking-retry-period = 1000
   timeout-retry-period = 1000
 }
- 
+
 transaction {
   undo.data.validation = true
   undo.log.serialization = "jackson"
@@ -1009,14 +1009,14 @@ transaction {
   undo.log.delete.period = 86400000
   undo.log.table = "undo_log"
 }
- 
+
 metrics {
   enabled = false
   registry-type = "compact"
   exporter-list = "prometheus"
   exporter-prometheus-port = 9898
 }
- 
+
 support {
   spring {
     datasource.autoproxy = false
@@ -1025,7 +1025,7 @@ support {
 
 ```
 
- 创建registry.conf,来指定file,zk的ip端口之类的配置 
+ 创建registry.conf,来指定file,zk的ip端口之类的配置
 
 ```java
 registry {
@@ -1060,10 +1060,10 @@ config {
 
 ```java
 package org.test;
- 
+
 import java.util.TimeZone;
 import java.util.concurrent.Executor;
- 
+
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -1074,9 +1074,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
- 
+
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
- 
+
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, MybatisPlusAutoConfiguration.class})
 @EnableScheduling
 @EnableAsync
@@ -1089,7 +1089,7 @@ public class ClientApplication {
         SpringApplication app = new SpringApplication(ClientApplication.class);
         app.run(args);
     }
- 
+
     @Bean(name = "threadPoolTaskExecutor")
     public Executor threadPoolTaskExecutor() {
         return new ThreadPoolTaskExecutor();
@@ -1102,13 +1102,13 @@ public class ClientApplication {
 
 ```java
 package org.test.config;
- 
+
 import java.util.ArrayList;
 import java.util.List;
- 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
- 
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -1118,7 +1118,7 @@ import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
- 
+
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -1131,7 +1131,7 @@ public class SwaggerConfig {
             .apis(RequestHandlerSelectors.basePackage("org.test.controller")).paths(PathSelectors.any()).build()
             .globalOperationParameters(pars);
     }
- 
+
     // 构建 api文档的详细信息函数,注意这里的注解引用的是哪个
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
@@ -1148,16 +1148,16 @@ public class SwaggerConfig {
 
 ```
 
-​	再创建SpringMvcConfigure,再里面放入seata的配置,我为了偷懒直接集成在mvc配置的类里了,大家规范点可以另外创建个配置seata的类,大家可以发现下面还是有个组名称,我把两个项目都分配到一个组去,貌似另外取一个也没事的. 
+​	再创建SpringMvcConfigure,再里面放入seata的配置,我为了偷懒直接集成在mvc配置的类里了,大家规范点可以另外创建个配置seata的类,大家可以发现下面还是有个组名称,我把两个项目都分配到一个组去,貌似另外取一个也没事的.
 
 ```java
 package org.test.config;
- 
-import java.nio.charset.Charset; 
+
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
- 
+
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -1173,17 +1173,17 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
- 
+
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.google.common.collect.Maps;
- 
+
 import io.seata.spring.annotation.GlobalTransactionScanner;
- 
+
 @Configuration
 public class SpringMvcConfigure implements WebMvcConfigurer {
- 
+
     @Bean
     public FilterRegistrationBean corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -1204,7 +1204,7 @@ public class SpringMvcConfigure implements WebMvcConfigurer {
         filterRegistrationBean.setInitParameters(initParameters);
         return filterRegistrationBean;
     }
- 
+
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -1214,9 +1214,9 @@ public class SpringMvcConfigure implements WebMvcConfigurer {
         // 这个属性通常并不需要手动配置，高版本的Spring会自动检测
         return viewResolver;
     }
- 
- 
- 
+
+
+
     /**
      * 替换框架json为fastjson
      */
@@ -1236,12 +1236,12 @@ public class SpringMvcConfigure implements WebMvcConfigurer {
         converters.add(smc);
         converters.add(fastConverter);
     }
- 
+
     @Bean
     public GlobalTransactionScanner globalTransactionScanner() {
         return new GlobalTransactionScanner("test-client", "test-group");
     }
- 
+
 }
 
 ```
@@ -1250,7 +1250,7 @@ public class SpringMvcConfigure implements WebMvcConfigurer {
 
 ```java
 package org.test.controller;
- 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1259,10 +1259,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.test.service.DemoService;
- 
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
- 
+
 /**
  * <p>
  * 文件表 前端控制器
@@ -1275,56 +1275,56 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/test")
 @Api(tags = "测试接口")
 public class TestController {
- 
+
     private final static Logger logger = LoggerFactory.getLogger(TestController.class);
     @Autowired
     @Lazy
     DemoService demoService;
- 
+
     @GetMapping(value = "testSeataOne")
     @ApiOperation(value = "测试手动回滚分布式事务接口")
     public Object testSeataOne() {
         return demoService.One();
     }
- 
+
     @GetMapping(value = "testSeataTwo")
     @ApiOperation(value = "测试异常回滚分布式事务接口")
     public Object testSeataTwo() {
         return demoService.Two();
     }
- 
+
 }
 
 ```
 
- 再到service去创建需要依赖的DemoService 
+ 再到service去创建需要依赖的DemoService
 
 ```java
 package org.test.service;
- 
+
 import java.time.LocalDateTime;
- 
+
 import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.test.controller.TestController;
 import org.test.entity.Test;
- 
+
 import io.seata.core.context.RootContext;
 import io.seata.core.exception.TransactionException;
 import io.seata.spring.annotation.GlobalTransactional;
 import io.seata.tm.api.GlobalTransactionContext;
- 
+
 @Service
 public class DemoService {
 	@Reference(version = "1.0.0", timeout = 60000)
 	private ITestService testService;
 	private final static Logger logger = LoggerFactory.getLogger(DemoService.class);
- 
+
 	/**
 	 * 手动回滚示例
-	 * 
+	 *
 	 * @return
 	 */
 	@GlobalTransactional
@@ -1350,10 +1350,10 @@ public class DemoService {
 		}
 		return false;
 	}
- 
+
 	/**
 	 * 抛出异常进行回滚示例
-	 * 
+	 *
 	 * @return
 	 */
 	@GlobalTransactional
@@ -1376,7 +1376,7 @@ public class DemoService {
 
 ```
 
- 一样创建resources文件夹,先创建常用的**application.yml** 
+ 一样创建resources文件夹,先创建常用的**application.yml**
 
 ```java
 spring:
@@ -1425,23 +1425,23 @@ server:
 
 ![20191129143124](/img/blog/20191129143124.png)
 
-  这里数据我已经存了一条记录了,我们看看会不会成功回滚: 
+  这里数据我已经存了一条记录了,我们看看会不会成功回滚:
 
 ![20191129143252](/img/blog/20191129143252.png)
 
- 刷新数据库,发现还是只有一条数据: 
+ 刷新数据库,发现还是只有一条数据:
 
 ![20191129143124](/img/blog/20191129143124.png)
 
- 再查看日志: 
+ 再查看日志:
 
 ![20191129143407](/img/blog/20191129143407.png)
 
- 显示已经回滚,我们再看看seata-server的日志: 
+ 显示已经回滚,我们再看看seata-server的日志:
 
 <img src="/img/blog/20191129143419.png" style={{ zoom:'200%' }} />
 
- 显示回滚成功,事务id也是一致的,这下我们的分布式事务就跑通咯,通过打断点方式,大家可以查看undo_log,会发现再事务提交前,会存入一条事务信息的数据,如果回滚成功,该信息就会被删除. 
+ 显示回滚成功,事务id也是一致的,这下我们的分布式事务就跑通咯,通过打断点方式,大家可以查看undo_log,会发现再事务提交前,会存入一条事务信息的数据,如果回滚成功,该信息就会被删除.
 
 # 总结
 

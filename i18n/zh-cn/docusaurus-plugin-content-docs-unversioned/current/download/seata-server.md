@@ -49,7 +49,7 @@ hide_table_of_contents: true
 | 2.1.0 | [apache-seata-2.1.0-incubating-src.tar.gz](https://downloads.apache.org/incubator/seata/2.1.0/apache-seata-2.1.0-incubating-src.tar.gz) <br/> [apache-seata-2.1.0-incubating-src.tar.gz.asc](https://dist.apache.org/repos/dist/release/incubator/seata/2.1.0/apache-seata-2.1.0-incubating-src.tar.gz.asc) <br/> [apache-seata-2.1.0-incubating-src.tar.gz.sha512](https://dist.apache.org/repos/dist/release/incubator/seata/2.1.0/apache-seata-2.1.0-incubating-src.tar.gz.sha512) | [apache-seata-2.1.0-incubating-bin.tar.gz](https://dist.apache.org/repos/dist/release/incubator/seata/2.1.0/apache-seata-2.1.0-incubating-bin.tar.gz) <br/> [apache-seata-2.1.0-incubating-bin.tar.gz.asc](https://dist.apache.org/repos/dist/release/incubator/seata/2.1.0/apache-seata-2.1.0-incubating-bin.tar.gz.asc)<br/> [apache-seata-2.1.0-incubating-bin.tar.gz.sha512](https://dist.apache.org/repos/dist/release/incubator/seata/2.1.0/apache-seata-2.1.0-incubating-bin.tar.gz.sha512) | [2.1.0 Release Notes](https://github.com/apache/incubator-seata/releases/tag/v2.1.0) | [2.1.0 Quick Start](/docs/user/quickstart/) |
 
 1. Seata 版本维护策略，请参考[版本维护文档](/docs/ops/version-maintain-plan)，请您尽快升级低版本至当前维护版本。版本升级请参考[升级指南](/docs/ops/upgrade)
-2. 更多历史版本下载，请参考[版本历史](/unversioned/release-history/seata-server)
+2. 更多历史版本下载，请参考[版本历史](/release-history/seata-server)
 
 ```mdx-code-block
 </section>

@@ -23,7 +23,7 @@ This article was written by FUNKYE (Chen Jianbin), Hangzhou, an Internet company
 
 1. First of all, install mysql, eclipse and other commonly used tools, which does not expand.
 
-2. visit the seata download centre [address](/unversioned/download/seata-server) we use version 0.9.0
+2. visit the seata download centre [address](/download/seata-server) we use version 0.9.0
 
 3. Download and unzip seata-server.
 

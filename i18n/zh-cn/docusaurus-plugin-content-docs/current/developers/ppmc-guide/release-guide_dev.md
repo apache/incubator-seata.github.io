@@ -264,7 +264,7 @@ asc验证
 
 而其上级seata目录中的KEYS需要保证追加了第一步所说的，将构建的公钥放入其中
 
-执行 
+执行
 
 `svn add x.x.x`
 
@@ -555,7 +555,7 @@ The Apache Seata(Incubating) vx.x.x has been released!
 
 Apache Seata is an easy-to-use, high-performance, open source distributed transaction solution.
 
-Download Links: https://seata.apache.org/unversioned/download/seata-server/
+Download Links: https://seata.apache.org/download/seata-server/
 
 Release Notes:
 https://github.com/apache/incubator-seata/releases/tag/vx.x.x/
