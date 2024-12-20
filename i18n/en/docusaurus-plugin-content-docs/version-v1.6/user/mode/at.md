@@ -36,7 +36,7 @@ public void purchase(String userId, String commodityCode, int count, int money) 
 
 If you have used the Spring framework's `@Transactional` annotation before, you can understand the functionality of `@GlobalTransactional` based on a similar naming analogy. Yes, here we introduce an annotation to easily implement distributed transaction capabilities, and using AT Mode can minimize the cost of business refactoring.
 
-It is important to note that `jdbcTemplateA` and `jdbcTemplateB` use different data sources for construction, and both of these different data sources need to be wrapped using Seata's AT data source proxy class `DataSourceProxy`. For information on what the data source proxy helps us achieve, please read the [Transaction Isolation](../appendix/isolation#从代理数据源说起) section in the appendix.
+It is important to note that `jdbcTemplateA` and `jdbcTemplateB` use different data sources for construction, and both of these different data sources need to be wrapped using Seata's AT data source proxy class `DataSourceProxy`. For information on what the data source proxy helps us achieve, please read the [Transaction Isolation](../appendix/isolation#starting-with-the-proxy-data-source) section in the appendix.
 
 ## Getting Started
 

@@ -217,7 +217,7 @@ public interface InventoryAction {
 - ErrorCode: Fail 类型"状态"的错误码
 - Message: Fail 类型"状态"的错误信息
 
-更多详细的状态语言解释请看[State language referance](#State-language-referance)章节
+更多详细的状态语言解释请看[State language reference](#state-language-reference)章节
 
 更多详细的状态语言使用示例见[https://github.com/apache/incubator-seata/tree/develop/test/src/test/java/io/seata/saga/engine](https://github.com/apache/incubator-seata/tree/develop/test/src/test/java/io/seata/saga/engine)
 
@@ -557,7 +557,7 @@ public interface StateMachineRepository {
 </bean>
 ```
 
-## State language referance
+## State language reference
 
 ### "状态机"的属性列表
 
@@ -657,8 +657,8 @@ public interface StateMachineRepository {
 - IsAsync: 异步调用服务, 注意: 因为异步调用服务会忽略服务的返回结果, 所以用户定义的服务执行状态映射(下面的 Status 属性)将被忽略, 默认为服务调用成功, 如果提交异步调用就失败(比如线程池已满)则为服务执行状态为失败
 - IsRetryPersistModeUpdate: 向前重试时, 日志是否基于上次失败日志进行更新, 默认是 false, 即新增一条重试日志 (优先级高于状态机属性配置)
 - IsCompensatePersistModeUpdate: 向后补偿重试时, 日志是否基于上次补偿日志进行更新, 默认是 false, 即新增一条补偿日志 (优先级高于状态机属性配置)
-- Loop: 标识该事务节点是否为循环事务, 即由框架本身根据循环属性的配置, 遍历集合元素对该事务节点进行循环执行. 具体使用见: [Loop 循环事务使用](#Loop%20循环事务使用)
-- Input: 调用服务的输入参数列表, 是一个数组, 对应于服务方法的参数列表, $.表示使用表达式从状态机上下文中取参数，表达使用的[SpringEL](https://docs.spring.io/spring/docs/4.3.10.RELEASE/spring-framework-reference/html/expressions.html), 如果是常量直接写值即可。复杂的参数如何传入见:[复杂参数的 Input 定义](#复杂参数的Input定义)
+- Loop: 标识该事务节点是否为循环事务, 即由框架本身根据循环属性的配置, 遍历集合元素对该事务节点进行循环执行. 具体使用见: [Loop 循环事务使用](#loop-循环事务使用)
+- Input: 调用服务的输入参数列表, 是一个数组, 对应于服务方法的参数列表, $.表示使用表达式从状态机上下文中取参数，表达使用的[SpringEL](https://docs.spring.io/spring/docs/4.3.10.RELEASE/spring-framework-reference/html/expressions.html), 如果是常量直接写值即可。复杂的参数如何传入见:[复杂参数的 Input 定义](#复杂参数的-input-定义)
 - Output: 将服务返回的参数赋值到状态机上下文中, 是一个 map 结构，key 为放入到状态机上文时的 key（状态机上下文也是一个 map），value 中$.是表示 SpringEL 表达式，表示从服务的返回参数中取值，#root 表示服务的整个返回参数
 - Status: 服务执行状态映射，框架定义了三个状态，SU 成功、FA 失败、UN 未知, 我们需要把服务执行的状态映射成这三个状态，帮助框架判断整个事务的一致性，是一个 map 结构，key 是条件表达式，一般是取服务的返回值或抛出的异常进行判断，默认是 SpringEL 表达式判断服务返回参数，带$Exception\{开头表示判断异常类型。value 是当这个条件表达式成立时则将服务执行状态映射成这个值
 - Catch: 捕获到异常后的路由

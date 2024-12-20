@@ -28,7 +28,7 @@ Theoretical Basis: Paper by Hector & Kenneth titled "Sagas" (1987)
 
 SEATA's current Saga pattern implementation is based on a state machine engine, which works as follows:
   1. Define the service call process through a state diagram and generate a JSON state language definition file.
-  2. A node in the state diagram can be a service call, and each node can configure its compensation node. 
+  2. A node in the state diagram can be a service call, and each node can configure its compensation node.
   3. The state diagram JSON is driven by the state machine engine. When an exception occurs, the engine reverses the execution of the compensation nodes for the successful nodes to roll back the transaction.
    > Note: Whether to compensate in case of an exception can also be decided by the user.
   4. It can implement service orchestration needs, supporting features such as single choice, concurrency, sub-processes, parameter conversion, parameter mapping, service execution status judgment, and exception capture.
@@ -214,7 +214,7 @@ The provided text introduces the concept of "State Machine" and its attributes i
 * **ErrorCode**: The error code of the Fail type "state".
 * **Message**: The error message of the Fail type "state".
 
-For a more detailed explanation of state language, please see the [State language reference](#State-language-referance) section.
+For a more detailed explanation of state language, please see the [State language reference](#state-language-reference) section.
 
 For more detailed examples of state language usage, see [https://github.com/apache/incubator-seata/tree/develop/test/src/test/java/io/seata/saga/engine](https://github.com/apache/incubator-seata/tree/develop/test/src/test/java/io/seata/saga/engine).
 
@@ -642,8 +642,8 @@ public interface StateMachineRepository {
 * **IsAsync**: Indicates if the service is called asynchronously. Note: Asynchronous service calls will ignore the service's return result, so the service execution status mapping defined by the user (the Status attribute below) will be ignored. It defaults to successful service call. If the asynchronous call submission fails (e.g., thread pool is full), then the service execution status is considered failed.
 * **IsRetryPersistModeUpdate**: Indicates if the log is updated based on the last failed log during forward retry. Default is false, meaning a new retry log is added. This has a higher priority than the state machine properties configuration.
 * **IsCompensatePersistModeUpdate**: Indicates if the log is updated based on the last compensation log during backward compensation. Default is false, meaning a new compensation log is added. This has a higher priority than the state machine properties configuration.
-* **Loop**: Identifies whether the transaction node is a loop transaction, i.e., the framework itself iterates over collection elements based on the configuration of loop attributes and executes the transaction node in a loop. For specific usage, see: [Loop transaction usage](#Loop%20transaction%20usage).
-* **Input**: The list of input parameters for calling the service. It's an array corresponding to the service method's parameter list. `$` indicates using an expression to take parameters from the state machine context, expressed using [SpringEL](https://docs.spring.io/spring/docs/4.3.10.RELEASE/spring-framework-reference/html/expressions.html). For constants, the value can be written directly. For how to pass complex parameters, see: [Definition of complex parameters Input](#Definition%20of%20complex%20parameters%20Input).
+* **Loop**: Identifies whether the transaction node is a loop transaction, i.e., the framework itself iterates over collection elements based on the configuration of loop attributes and executes the transaction node in a loop. For specific usage, see: [Loop transaction usage](#loop-branch-transaction-usage).
+* **Input**: The list of input parameters for calling the service. It's an array corresponding to the service method's parameter list. `$` indicates using an expression to take parameters from the state machine context, expressed using [SpringEL](https://docs.spring.io/spring/docs/4.3.10.RELEASE/spring-framework-reference/html/expressions.html). For constants, the value can be written directly. For how to pass complex parameters, see: [Definition of complex parameters Input](#complex-input-parameters).
 * **Output**: Maps the service's returned parameters to the state machine context. It's a map structure where the key is the key when put into the state machine context (the state machine context is also a map), and the value with `$` indicates a SpringEL expression to take values from the service's returned parameters. `#root` represents the entire return parameter of the service.
 * **Status**: The mapping of service execution status. The framework defines three statuses: SU (Success), FA (Failure), and UN (Unknown). We need to map the execution status of the service to these three statuses to help the framework judge the consistency of the entire transaction. It's a map structure, where the key is a conditional expression, generally judging from the service's return value or thrown exception. Expressions starting with `$Exception{` indicate judging the type of exception. The value is the mapped execution status when this conditional expression holds.
 * **Catch**: Routing after an exception is caught.
