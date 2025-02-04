@@ -36,7 +36,7 @@ Seata分TC、TM和RM三个角色，TC（Server端）为单独服务端部署，T
 
 ```java
            <dependency>
-                <groupId>org.apache.seata</groupId>
+                <groupId>io.seata</groupId>
                 <artifactId>seata-spring-boot-starter</artifactId>
                 <version>最新版</version>
             </dependency>
@@ -46,7 +46,7 @@ Seata分TC、TM和RM三个角色，TC（Server端）为单独服务端部署，T
                 <version>最新版本</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>org.apache.seata</groupId>
+                        <groupId>io.seata</groupId>
                         <artifactId>seata-spring-boot-starter</artifactId>
                     </exclusion>
                 </exclusions>
@@ -57,8 +57,8 @@ Seata分TC、TM和RM三个角色，TC（Server端）为单独服务端部署，T
 
 ### 启动Server
 
-Server端存储模式（store.mode）现有file、db、redis、raft，file模式无需改动，直接启动即可,raft部署方式请访问[专门部署文档](/docs/ops/deploy-server-raft/)，下面专门讲下db和redis启动步骤。
-注： file模式为单机模式，全局事务会话信息内存中读写并异步(默认)持久化本地文件root.data，性能较高;
+Server端存储模式（store.mode）现有file、db、redis、raft，file模式无需改动，直接启动即可,raft部署方式请访问[专门部署文档](/docs/ops/deploy-server-raft/)，下面专门讲下db和redis启动步骤。  
+注： file模式为单机模式，全局事务会话信息内存中读写并异步(默认)持久化本地文件root.data，性能较高;  
 
 db模式为高可用模式，全局事务会话信息通过db共享，相应性能差些;
 
@@ -73,18 +73,18 @@ redis模式Seata-Server 1.3及以上版本支持,性能较高,存在事务信息
 
 #### 步骤三：修改store.mode
 
-启动包: seata-->conf-->application.yml，修改store.mode="db或者redis"
+启动包: seata-->conf-->application.yml，修改store.mode="db或者redis"  
 源码:   根目录-->seata-server-->resources-->application.yml，修改store.mode="db或者redis"
 
 #### 步骤四：修改数据库连接|redis属性配置
 
-启动包: seata-->conf-->application.example.yml中附带额外配置，将其db|redis相关配置复制至application.yml,进行修改store.db或store.redis相关属性。
-源码:   根目录-->seata-server-->resources-->application.example.yml中附带额外配置，将其db/redis相关配置复制至application.yml,进行修改store.db或store.redis相关属性。
+启动包: seata-->conf-->application.example.yml中附带额外配置，将其db|redis相关配置复制至application.yml,进行修改store.db或store.redis相关属性。  
+源码:   根目录-->seata-server-->resources-->application.example.yml中附带额外配置，将其db/redis相关配置复制至application.yml,进行修改store.db或store.redis相关属性。  
 
 
 #### 步骤五：启动
 
-- 源码启动: 执行ServerApplication.java的main方法
+- 源码启动: 执行ServerApplication.java的main方法  
 - 命令启动: seata-server.sh -h 127.0.0.1 -p 8091 -m db
 
 注: 堆内存建议分配2G，堆外内存1G
@@ -108,7 +108,7 @@ redis模式Seata-Server 1.3及以上版本支持,性能较高,存在事务信息
         0.9.0: support.spring.datasource.autoproxy=true
         ```
         如果采用XA模式，`@EnableAutoDataSourceProxy(dataSourceProxyMode = "XA")`
-
+    
     - 手动配置可参考下方的例子
         ```
         @Primary
@@ -122,21 +122,21 @@ redis模式Seata-Server 1.3及以上版本支持,性能较高,存在事务信息
         ```
 
 2. 如果使用seata-starter
-    - 使用自动代理数据源时，如果使用XA模式还需要调整配置文件
+    - 使用自动代理数据源时，如果使用XA模式还需要调整配置文件  
         application.properties
         ```
-        seata.data-source-proxy-mode=XA
+        seata.data-source-proxy-mode=XA  
         ```
         application.yml
         ```
         seata:
           data-source-proxy-mode: XA
         ```
-
-    - 如何关闭seata-spring-boot-starter的数据源自动代理？
+    
+    - 如何关闭seata-spring-boot-starter的数据源自动代理？   
         application.properties
         ```
-        seata.enable-auto-data-source-proxy=false
+        seata.enable-auto-data-source-proxy=false  
         ```
         application.yml
         ```
@@ -144,7 +144,7 @@ redis模式Seata-Server 1.3及以上版本支持,性能较高,存在事务信息
           enable-auto-data-source-proxy: false
         ```
 
-#### 步骤四：初始化GlobalTransactionScanner
+#### 步骤四：初始化GlobalTransactionScanner  
 - 手动
 ```  @Bean
        @Bean
@@ -155,7 +155,7 @@ redis模式Seata-Server 1.3及以上版本支持,性能较高,存在事务信息
                txServiceGroup = applicationName + "-fescar-service-group";
                this.seataProperties.setTxServiceGroup(txServiceGroup);
            }
-
+   
            return new GlobalTransactionScanner(applicationName, txServiceGroup);
        }
 ```

@@ -33,11 +33,11 @@ Data source automatic proxy is turned on by default, and it can be turned off by
 In the @SpringBootApplication annotation, exclude com.alibaba.cloud.seata.GlobalTransactionAutoConfiguration in spring-cloud-starter-alibaba-seata
 ```
 
-- Recommendations for spring-cloud-starter-alibaba-seata dependency configuration
+- Recommendations for spring-cloud-starter-alibaba-seata dependency configuration 
 
 ```java
             <dependency>
-                 <groupId>org.apache.seata</groupId>
+                 <groupId>io.seata</groupId>
                  <artifactId>seata-spring-boot-starter</artifactId>
              </dependency>
              <dependency>
@@ -45,7 +45,7 @@ In the @SpringBootApplication annotation, exclude com.alibaba.cloud.seata.Global
                  <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
                  <exclusions>
                      <exclusion>
-                         <groupId>org.apache.seata</groupId>
+                         <groupId>io.seata</groupId>
                          <artifactId>seata-spring-boot-starter</artifactId>
                      </exclusion>
                  </exclusions>
@@ -117,7 +117,7 @@ Note: It is recommended to allocate 2G of heap memory and 1G of off-heap memory.
         0.9.0: support.spring.datasource.autoproxy=true
         ```
         If XA mode is used, `@EnableAutoDataSourceProxy(dataSourceProxyMode = "XA")`
-
+    
     - For manual configuration, please refer to the example below
         ```
         @Primary
@@ -134,7 +134,7 @@ Note: It is recommended to allocate 2G of heap memory and 1G of off-heap memory.
     - When using automatic proxy data sources, you need to adjust the configuration file if you use XA mode
         application.properties
         ```
-        seata.data-source-proxy-mode=XA
+        seata.data-source-proxy-mode=XA  
         ```
         application.yml
         ```
@@ -163,7 +163,7 @@ Note: It is recommended to allocate 2G of heap memory and 1G of off-heap memory.
                 txServiceGroup = applicationName + "-fescar-service-group";
                 this.seataProperties.setTxServiceGroup(txServiceGroup);
             }
-
+   
             return new GlobalTransactionScanner(applicationName, txServiceGroup);
         }
 ```
