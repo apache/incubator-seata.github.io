@@ -137,7 +137,7 @@ dubbo-storage-service.xml
 
 ### 步骤 2：创建 UNDO_LOG 表
 
-SEATA AT 模式需要 `UNDO_LOG` 表。你可以通过 github 获取到指定版本的undo log SQL [脚本](https://github.com/apache/incubator-seata/tree/2.x/script/client/at/db).
+SEATA AT 模式需要 `UNDO_LOG` 表。你可以通过 github 获取到指定版本的undo log SQL [脚本](https://github.com/apache/incubator-seata/tree/v1.4.2/script/client/at/db).
 
 ```sql
 CREATE TABLE IF NOT EXISTS `undo_log`

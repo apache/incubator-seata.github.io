@@ -139,7 +139,7 @@ dubbo-storage-service.xml
 ### Step 2: Create UNDO_LOG table
 
 
-`UNDO_LOG` table is required by SEATA AT mode. You can obtain the specified version of the undo log SQL script from [github](https://github.com/apache/incubator-seata/tree/2.x/script/client/at/db).
+`UNDO_LOG` table is required by SEATA AT mode. You can obtain the specified version of the undo log SQL script from [github](https://github.com/apache/incubator-seata/tree/v1.3.0/script/client/at/db).
 
 ```sql
 CREATE TABLE IF NOT EXISTS `undo_log`
