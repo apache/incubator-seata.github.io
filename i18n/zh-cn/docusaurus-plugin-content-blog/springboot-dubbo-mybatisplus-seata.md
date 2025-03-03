@@ -14,10 +14,10 @@ date: 2019/11/29
 
 # 前言
 
-​    **事务**：事务是由一组操作构成的可靠的独立的工作单元，事务具备ACID的特性，即原子性、一致性、隔离性和持久性。
-​    **分布式事务**:当一个操作牵涉到多个服务,多台数据库协力完成时(比如分表分库后,业务拆分),多个服务中，本地的Transaction已经无法应对这个情况了,为了保证数据一致性，就需要用到分布式事务。
-​    **Seata** ：是一款开源的分布式事务解决方案，致力于在微服务架构下提供高性能和简单易用的分布式事务服务。
-​    **本文目的**：现如今微服务越来越流行，而市面上的分布式事务的方案可谓不少，参差不齐，比较流行的以MQ代表的保证的是消息最终一致性的解决方案（消费确认，消息回查，消息补偿机制等），以及TX-LCN的LCN模式协调本地事务来保证事务统一提交或回滚（已经停止更新，对Dubbo2.7不兼容）。而MQ的分布式事务太过复杂，TX-LCN断更，这时候需要一个高效可靠及易上手的分布式事务解决方案，Seata脱颖而出，本文要介绍的就是如何快速搭建一个整合Seata的Demo项目，一起来吧！
+     **事务**：事务是由一组操作构成的可靠的独立的工作单元，事务具备ACID的特性，即原子性、一致性、隔离性和持久性。
+     **分布式事务**:当一个操作牵涉到多个服务,多台数据库协力完成时(比如分表分库后,业务拆分),多个服务中，本地的Transaction已经无法应对这个情况了,为了保证数据一致性，就需要用到分布式事务。
+     **Seata** ：是一款开源的分布式事务解决方案，致力于在微服务架构下提供高性能和简单易用的分布式事务服务。
+     **本文目的**：现如今微服务越来越流行，而市面上的分布式事务的方案可谓不少，参差不齐，比较流行的以MQ代表的保证的是消息最终一致性的解决方案（消费确认，消息回查，消息补偿机制等），以及TX-LCN的LCN模式协调本地事务来保证事务统一提交或回滚（已经停止更新，对Dubbo2.7不兼容）。而MQ的分布式事务太过复杂，TX-LCN断更，这时候需要一个高效可靠及易上手的分布式事务解决方案，Seata脱颖而出，本文要介绍的就是如何快速搭建一个整合Seata的Demo项目，一起来吧！
 
 # 准备工作
 
@@ -232,11 +232,11 @@ CREATE TABLE `undo_log` (
 
 # 创建项目
 
-​	首先我们使用的是eclipse,当然你也可以用idea之类的工具,详细请按下面步骤来运行
+ 	首先我们使用的是eclipse,当然你也可以用idea之类的工具,详细请按下面步骤来运行
 
-​	1.创建一个新的maven项目,并删除多余文件夹:![20191129133354](/img/blog/20191129133354.png)<img src="/img/blog/20191129133441.png" alt="20191129133441" style={{ zoom:'150%' }} />
+ 	1.创建一个新的maven项目,并删除多余文件夹:![20191129133354](/img/blog/20191129133354.png)<img src="/img/blog/20191129133441.png" alt="20191129133441" style={{ zoom:'150%' }} />
 
-​	2.打开项目的pom.xml,加入以下依赖:
+ 	2.打开项目的pom.xml,加入以下依赖:
 
 ```java
 	<properties>
@@ -385,11 +385,11 @@ CREATE TABLE `undo_log` (
 
 ```
 
-​	3.再切换父项目为pom模式,还是pom文件,切换为 overview ,做如图操作:![20191129134127](/img/blog/20191129134127.png)
+ 	3.再切换父项目为pom模式,还是pom文件,切换为 overview ,做如图操作:![20191129134127](/img/blog/20191129134127.png)
 
 4.创建我们的demo子项目,test-service:![20191129135935](/img/blog/20191129135935.png)
 
-​	目录如下:
+ 	目录如下:
 
 <img src="/img/blog/20191129140048.png" alt="20191129140048"  style={{ zoom:'200%' }} />
 
@@ -717,7 +717,7 @@ public class Test implements Serializable {
 
 ```
 
-​	创建service,service.impl,mapper等包,依次创建ITestservice,以及实现类,mapper
+ 	创建service,service.impl,mapper等包,依次创建ITestservice,以及实现类,mapper
 
 ```java
 package org.test.service;
@@ -909,7 +909,7 @@ public class MybatisPlusConfig {
 
 ```
 
-​	 再创建**resources目录,创建mapper文件夹,application.yml等文件**
+ 	 再创建**resources目录,创建mapper文件夹,application.yml等文件**
 
 ```yaml
 server:
@@ -950,7 +950,7 @@ mybatis-plus:
 
 ```
 
-​	 创建file.conf,此处的service 内的vgroup_mapping.你的事务分组,比如上**面SeataAutoConfig内配置了test-group,那么这里也要改为test-group**,然后下面ip端口都是seata运行的ip跟端口就行了
+ 	 创建file.conf,此处的service 内的vgroup_mapping.你的事务分组,比如上**面SeataAutoConfig内配置了test-group,那么这里也要改为test-group**,然后下面ip端口都是seata运行的ip跟端口就行了
 
 ```java
 transport {
@@ -1048,11 +1048,11 @@ config {
 
 ```
 
-​	 大功告成,可以直接运行啦,这时候观察seata-server![20191129142115](/img/blog/20191129142115.png)
+ 	 大功告成,可以直接运行啦,这时候观察seata-server![20191129142115](/img/blog/20191129142115.png)
 
-​	接下来我们创建test-client项目项目,这里就不赘述了,跟上面的test-service一样的创建方式
+ 	接下来我们创建test-client项目项目,这里就不赘述了,跟上面的test-service一样的创建方式
 
-​	接下来我们复制test-service内的service跟实体过去,当然你嫌麻烦,可以单独搞个子项目放通用的service跟实体,一些工具类等等,我这边为了快速搭建这个demo,就选择复制黏贴的方式了.
+ 	接下来我们复制test-service内的service跟实体过去,当然你嫌麻烦,可以单独搞个子项目放通用的service跟实体,一些工具类等等,我这边为了快速搭建这个demo,就选择复制黏贴的方式了.
 
 目录结构:![](/img/blog/20191129142349.png)
 
@@ -1148,7 +1148,7 @@ public class SwaggerConfig {
 
 ```
 
-​	再创建SpringMvcConfigure,再里面放入seata的配置,我为了偷懒直接集成在mvc配置的类里了,大家规范点可以另外创建个配置seata的类,大家可以发现下面还是有个组名称,我把两个项目都分配到一个组去,貌似另外取一个也没事的.
+ 	再创建SpringMvcConfigure,再里面放入seata的配置,我为了偷懒直接集成在mvc配置的类里了,大家规范点可以另外创建个配置seata的类,大家可以发现下面还是有个组名称,我把两个项目都分配到一个组去,貌似另外取一个也没事的.
 
 ```java
 package org.test.config;
@@ -1421,7 +1421,7 @@ server:
 
  完整的目录结构如上,这时候可以启动test-service后,再启动test-client,到swagger里测试咯
 
-​	4.访问127.0.0.1:28888/swagger-ui.html做最后的收尾		![](/img/blog/20191129143041.png)
+ 	4.访问127.0.0.1:28888/swagger-ui.html做最后的收尾		![](/img/blog/20191129143041.png)
 
 ![20191129143124](/img/blog/20191129143124.png)
 

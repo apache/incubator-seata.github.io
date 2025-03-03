@@ -17,7 +17,7 @@ date: 2020/1/11
 
 ## 二. 环境配置
 
-seata server 在加载的时候，会使用 resources/registry.conf 来确定配置中心和注册中心的类型。而 seata client 在 1.0 版本后，不仅能使用 conf 文件进行配置的加载，也可以在 springboot 的 yml 配置文件中，使用 seata.config.\{type} 来进行配置中心的选择，注册中心与之类似。通过 yml 加载配置的源码在 io.seata.spring.boot.autoconfigure.properties.registry 包下。
+seata server 在加载的时候，会使用 resources/registry.conf 来确定配置中心和注册中心的类型。而 seata client 在 1.0 版本后，不仅能使用 conf 文件进行配置的加载，也可以在 springboot 的 yml 配置文件中，使用 seata.config.\{type} 来进行配置中心的选择，注册中心与之类似。通过 yml 加载配置的源码在 `io.seata.spring.boot.autoconfigure.properties.registry` 包下。
 
 如果 seata 客户端的使用者既在 resources 下放了 conf 配置文件又在 yml 文件中配置，那么会优先使用 yml 中配置的。代码：
 
@@ -43,19 +43,22 @@ client 和 server 获取配置参数，是通过 ConfigurationFactory#getInstanc
 
 ```java
 public class GlobalTransactionalInterceptor implements ConfigurationChangeListener {
-private volatile boolean disable = ConfigurationFactory.getInstance().getBoolean(ConfigurationKeys.DISABLE_GLOBAL_TRANSACTION,false);
-@Override public Object invoke(Param param) {
-   if(disable){//事务业务处理}
+  private volatile boolean disable = ConfigurationFactory.getInstance()
+    .getBoolean(ConfigurationKeys.DISABLE_GLOBAL_TRANSACTION,false);
+  @Override public Object invoke(Param param) {
+     if(disable){//事务业务处理}
+  }
+  @Override public void onChangeEvent(Param param) {
+     disable = param;
+  }
 }
-@Override public void onChangeEvent(Param param) {
-   disable = param;
-}}
 ```
 
 上面是 spring 模块下的 GlobalTransactionalInterceptor 与降级属性相关的伪代码。 GlobalTrarnsactionalScanner 在上面的 interceptor 类被实例化时，把 interceptor 注册到了配置变化监听列表中，当配置被改变的时候，会调用监听器：
 
 ```java
-ConfigurationFactory.getInstance().addConfigListener(ConfigurationKeys.DISABLE_GLOBAL_TRANSACTION,(ConfigurationChangeListener)interceptor);
+ConfigurationFactory.getInstance()
+    .addConfigListener(ConfigurationKeys.DISABLE_GLOBAL_TRANSACTION,(ConfigurationChangeListener)interceptor);
 ```
 
 降级的意思是，当服务某一项功能不可用的时候，通过动态配置的属性，把某一项功能给关了，这样就可以避免一直尝试失败的处理。interceptor#invoke() 只有当这个 disable 属性为 true 时，才会执行 seata 事务相关业务。

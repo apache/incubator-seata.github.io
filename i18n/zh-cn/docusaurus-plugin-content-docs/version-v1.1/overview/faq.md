@@ -170,7 +170,7 @@ Error: A fatal exception has occurred. Program will exit.导致 seata-server 无
 因 seata 一阶段本地事务已提交，为防止其他事务脏读脏写需要加强隔离。
 
 1. 脏读 select 语句加 for update，代理方法增加@GlobalLock+@Transactional 或@GlobalTransactional
-2. 脏写 必须使用@GlobalTransactional  
+2. 脏写 必须使用@GlobalTransactional
     注：如果你查询的业务的接口没有@GlobalTransactional 包裹，也就是这个方法上压根没有分布式事务的需求，这时你可以在方法上标注@GlobalLock+@Transactional 注解，并且在查询语句上加 for update。
    如果你查询的接口在事务链路上外层有@GlobalTransactional 注解，那么你查询的语句只要加 for update 就行。设计这个注解的原因是在没有这个注解之前，需要查询分布式事务读已提交的数据，但业务本身不需要分布式事务。
    若使用@GlobalTransactional 注解就会增加一些没用的额外的 rpc 开销比如 begin 返回 xid，提交事务等。GlobalLock 简化了 rpc 过程，使其做到更高的性能。
@@ -244,7 +244,7 @@ UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=75 -verbose:gc 
 <h3 id='8'>Q: 8.Eureka做注册中心，TC高可用时，如何在TC端覆盖Eureka属性?</h3>
 
 **A：**
-在 seata\conf 目录下新增 eureka-client.properties 文件，添加要覆盖的 Eureka 属性即可。  
+在 seata\conf 目录下新增 eureka-client.properties 文件，添加要覆盖的 Eureka 属性即可。
  例如，要覆盖 eureka.instance.lease-renewal-interval-in-seconds 和 eureka.instance.lease-expiration-duration-in-seconds，添加如下内容：
 
 ```
@@ -266,7 +266,7 @@ undolog 序列化配置为 jackson 时，jackson 版本需要为 2.9.9+
 <h3 id='10'>Q: 10.为什么mybatis没有返回自增ID?</h3>
 
 **A:**
-方案 1.需要修改 mybatis 的配置: 在`@Options(useGeneratedKeys = true, keyProperty = "id")`或者在 xml 中指定 useGeneratedKeys 和 keyProperty 属性  
+方案 1.需要修改 mybatis 的配置: 在`@Options(useGeneratedKeys = true, keyProperty = "id")`或者在 xml 中指定 useGeneratedKeys 和 keyProperty 属性
 方案 2.删除 undo_log 表的 id 字段
 
 ---
@@ -280,7 +280,7 @@ undolog 序列化配置为 jackson 时，jackson 版本需要为 2.9.9+
 
 <h3 id='12'>Q: 12.TC如何使用mysql8?</h3>
 
-**A:** 1.修改 file.conf 的驱动配置 store.db.driver-class-name; 2.lib 目录下删除 mysql5 驱动,添加 mysql8 驱动  
+**A:** 1.修改 file.conf 的驱动配置 store.db.driver-class-name; 2.lib 目录下删除 mysql5 驱动,添加 mysql8 驱动
 ps: oracle 同理;1.2.0 支持 mysql 驱动多版本隔离，无需再添加驱动
 
 ---
@@ -351,15 +351,15 @@ ps: oracle 同理;1.2.0 支持 mysql 驱动多版本隔离，无需再添加驱�
 
 **A:**
 
-由于 apache-dubbo 在加载 Filter 时,会将 alibaba-dubbo 的 filter 一并加载且 2.7.0 版本 com.alibaba.dubbo.rpc.Invoker 中  
-`Result invoke(org.apache.dubbo.rpc.Invocation invocation) throws RpcException;`  
+由于 apache-dubbo 在加载 Filter 时,会将 alibaba-dubbo 的 filter 一并加载且 2.7.0 版本 com.alibaba.dubbo.rpc.Invoker 中
+`Result invoke(org.apache.dubbo.rpc.Invocation invocation) throws RpcException;`
 误使用了 org.apache.dubbo.rpc.Invocation 来入参(2.7.1 修复),导致出现
 
 ```java
 java.lang.NoSuchMethodError: com.alibaba.dubbo.rpc.Invoker.invoke(Lcom/alibaba/dubbo/rpc/Invocation;)Lcom/alibaba/dubbo/rpc/Result;
 ```
 
-所以请升级 dubbo 到 2.7.1 及以上,保证兼容.本身是 alibaba-dubbo 可放心使用,alibaba-dubbo 并不包含 apache-dubbo 的包。  
+所以请升级 dubbo 到 2.7.1 及以上,保证兼容.本身是 alibaba-dubbo 可放心使用,alibaba-dubbo 并不包含 apache-dubbo 的包。
 参考链接:[issue](https://github.com/apache/dubbo/issues/3570),[PR](https://github.com/apache/dubbo/pull/3622/files)
 
 ---
@@ -453,8 +453,8 @@ seata:
 @GlobalTransactional(timeout=60000)
 public void A（）\{
 
-​ call remoting B();//远程调用 B 服务
-​ local DB operation;
+  call remoting B();//远程调用 B 服务
+  local DB operation;
 
 }
 

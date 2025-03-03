@@ -80,7 +80,7 @@ Seata 是一款开源的分布式事务解决方案，提供高性能和简单�
 - [[#6091](https://github.com/apache/incubator-seata/pull/6091)] 优化raft鉴权时获取tc地址的方式
 - [[#6098](https://github.com/apache/incubator-seata/pull/6098)] 优化acquireMetadata方法的重试逻辑
 - [[#6034](https://github.com/apache/incubator-seata/pull/6034)] 使用helm图表进行部署时使用命令行中的命名空间
-- [[#6116](https://github.com/apache/incubator-seata/pull/6034)] 移除 lgtm.com 
+- [[#6116](https://github.com/apache/incubator-seata/pull/6034)] 移除 lgtm.com
 - [[#6164](https://github.com/apache/incubator-seata/pull/6164)] redis 注册中心推空保护优化
 - [[#6174](https://github.com/apache/incubator-seata/pull/6174)] 增加 ASF 基础配置
 - [[#6148](https://github.com/apache/incubator-seata/pull/6148)] 支持 Nacos ram role 鉴权方式
@@ -2226,8 +2226,6 @@ Seata 是一款开源的分布式事务解决方案，提供高性能和简单�
 
 此版本更新如下：
 
-​
-
 ### feature
 
 - [[#1966](https://github.com/apache/incubator-seata/pull/1966)] 增加 client 端单条消息发送方式
@@ -2758,7 +2756,7 @@ Seata 是一款开源的分布式事务解决方案，提供高性能和简单�
 
 <details>
     <summary><mark>Release notes</mark></summary>
-​
+
 
 Seata 0.7.0 发布
 

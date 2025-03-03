@@ -20,12 +20,12 @@ date: 2019/12/23
 
 ## 准备工作
 
-​	1.创建测试用的TestAspect:
+ 	1.创建测试用的TestAspect:
 
 ```java
 package org.test.config;
 
-import java.lang.reflect.Method; 
+import java.lang.reflect.Method;
 
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
@@ -47,7 +47,7 @@ import io.seata.tm.api.GlobalTransactionContext;
 @Component
 public class TestAspect {
     private final static Logger logger = LoggerFactory.getLogger(TestAspect.class);
-    
+
     @Before("execution(* org.test.service.*.*(..))")
     public void before(JoinPoint joinPoint) throws TransactionException {
         MethodSignature signature = (MethodSignature)joinPoint.getSignature();
@@ -86,7 +86,7 @@ public class TestAspect {
 
 请注意上面的包名可改为你自己的service包名:
 
-​	2.改动service代码:
+ 	2.改动service代码:
 
 ```java
     public Object seataCommit() {
@@ -99,7 +99,7 @@ public class TestAspect {
 
 # 进行调试
 
-​	1.更改代码主动抛出异常
+ 	1.更改代码主动抛出异常
 
 ```java
     public Object seataCommit() {
@@ -114,7 +114,7 @@ public class TestAspect {
     }
 ```
 
-​	查看日志:
+ 	查看日志:
 
 ```java
 2019-12-23 11:57:55.386  INFO 23952 --- [.0-28888-exec-7] org.test.controller.TestController       : 拦截到需要分布式事务的方法,seataCommit
@@ -126,9 +126,9 @@ public class TestAspect {
 
 ```
 
-​	可以看到已被拦截也触发了rollback了.
+ 	可以看到已被拦截也触发了rollback了.
 
-​	2.恢复代码调试正常情况:
+ 	2.恢复代码调试正常情况:
 
 ```java
     public Object seataCommit() {
@@ -137,7 +137,7 @@ public class TestAspect {
     }
 ```
 
-​	查看日志:
+ 	查看日志:
 
 ```
 2019-12-23 12:00:20.876  INFO 23952 --- [.0-28888-exec-2] org.test.controller.TestController       : 拦截到需要分布式事务的方法,seataCommit
@@ -148,7 +148,7 @@ public class TestAspect {
 2019-12-23 12:00:21.213  INFO 23952 --- [.0-28888-exec-2] i.seata.tm.api.DefaultGlobalTransaction  : [192.168.14.67:8092:2030765926] commit status: Committed
 ```
 
-​	可以看到事务已经被提交了.
+ 	可以看到事务已经被提交了.
 
 # 总结
 

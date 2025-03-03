@@ -84,6 +84,11 @@ redis模式Seata-Server 1.3及以上版本支持,性能较高,存在事务信息
 
 - 源码启动: 执行ServerApplication.java的main方法  
 - 命令启动: seata-server.sh -h 127.0.0.1 -p 8091 -m db
+```
+    -h: 注册到注册中心的ip
+    -p: Server rpc 监听端口
+    -m: 全局事务会话信息存储模式，file、db、redis，优先读取启动参数 (Seata-Server 1.3及以上版本支持redis)
+```
 
 注: 堆内存建议分配2G，堆外内存1G
 

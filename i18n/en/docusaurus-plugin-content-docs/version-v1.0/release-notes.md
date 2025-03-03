@@ -19,7 +19,7 @@ description: This article will introduce you how to understand the details of ea
 
 <details>
   <summary><mark>Release notes</mark></summary>
-  
+
 ### Seata 1.0.0
 
 Seata 1.0.0 Released.
@@ -132,7 +132,7 @@ The version is updated as follows:
 - [[#1920](https://github.com/apache/incubator-seata/pull/1920)] use iterator to remove timeout future.
 - [[#1907](https://github.com/apache/incubator-seata/pull/1907)] encapsulation determines the supported database type
 - [[#1903](https://github.com/apache/incubator-seata/pull/1903)] batch query branchSession by xid list
-- [[#1910](https://github.com/apache/incubator-seata/pull/1910)] all Override methods must be annotated with [@override](https://github.com/override)
+- [[#1910](https://github.com/apache/incubator-seata/pull/1910)] all Override methods must be annotated with [@override](https://github.com/override)
 - [[#1906](https://github.com/apache/incubator-seata/pull/1906)] add exception system exit code when rpcServer init.
 - [[#1897](https://github.com/apache/incubator-seata/pull/1897)] remove clientTest it's not use
 - [[#1883](https://github.com/apache/incubator-seata/pull/1883)] restructure SQLRecognizer and UndoExecutor

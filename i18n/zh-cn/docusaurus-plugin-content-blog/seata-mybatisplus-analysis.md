@@ -9,7 +9,7 @@ date: 2019/11/30
 
 # 透过源码解决SeataAT模式整合Mybatis-Plus失去MP特性的问题
 
-项目地址：https://gitee.com/itCjb/springboot-dubbo-mybatisplus-seata 
+项目地址：https://gitee.com/itCjb/springboot-dubbo-mybatisplus-seata
 
 本文作者：FUNKYE(陈健斌),杭州某互联网公司主程。
 
@@ -36,15 +36,15 @@ AT模式机制：
 
 ## 分析原因
 
-​	1.首先我们通过介绍，可以看到，mp是需要注册sqlSessionFactory，注入数据源，而Seata是通过代理数据源来保证事务的正常回滚跟提交。
+ 	1.首先我们通过介绍，可以看到，mp是需要注册sqlSessionFactory，注入数据源，而Seata是通过代理数据源来保证事务的正常回滚跟提交。
 
-​	2.我们来看基于seata的官方demo提供的SeataAutoConfig的代码
+ 	2.我们来看基于seata的官方demo提供的SeataAutoConfig的代码
 
 ```java
 package org.test.config;
- 
-import javax.sql.DataSource; 
- 
+
+import javax.sql.DataSource;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,19 +53,19 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
- 
+
 import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
- 
+
 import io.seata.rm.datasource.DataSourceProxy;
 import io.seata.spring.annotation.GlobalTransactionScanner;
- 
+
 @Configuration
 public class SeataAutoConfig {
 	@Autowired(required = true)
 	private DataSourceProperties dataSourceProperties;
 	private final static Logger logger = LoggerFactory.getLogger(SeataAutoConfig.class);
- 
+
 	@Bean(name = "dataSource") // 声明其为Bean实例
 	@Primary // 在同样的DataSource中，首先使用被标注的DataSource
 	public DataSource druidDataSource() {
@@ -91,10 +91,10 @@ public class SeataAutoConfig {
 		logger.info("装载dataSource........");
 		return druidDataSource;
 	}
- 
+
 	/**
 	 * init datasource proxy
-	 * 
+	 *
 	 * @Param: druidDataSource datasource bean instance
 	 * @Return: DataSourceProxy datasource proxy
 	 */
@@ -103,7 +103,7 @@ public class SeataAutoConfig {
 		logger.info("代理dataSource........");
 		return new DataSourceProxy(dataSource);
 	}
- 
+
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSourceProxy dataSourceProxy) throws Exception {
 		MybatisSqlSessionFactoryBean factory = new MybatisSqlSessionFactoryBean();
@@ -112,7 +112,7 @@ public class SeataAutoConfig {
             .getResources("classpath*:/mapper/*.xml"));
 		return factory.getObject();
 	}
- 
+
 	/**
 	 * init global transaction scanner
 	 *
@@ -152,8 +152,8 @@ public class SeataAutoConfig {
  * the License.
  */
 package com.baomidou.mybatisplus.autoconfigure;
- 
- 
+
+
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
@@ -201,12 +201,12 @@ import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
- 
+
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
- 
+
 /**
  * {@link EnableAutoConfiguration Auto-Configuration} for Mybatis. Contributes a
  * {@link SqlSessionFactory} and a {@link SqlSessionTemplate}.
@@ -229,28 +229,28 @@ import java.util.stream.Stream;
 @EnableConfigurationProperties(MybatisPlusProperties.class)
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 public class MybatisPlusAutoConfiguration implements InitializingBean {
- 
+
     private static final Logger logger = LoggerFactory.getLogger(MybatisPlusAutoConfiguration.class);
- 
+
     private final MybatisPlusProperties properties;
- 
+
     private final Interceptor[] interceptors;
- 
+
     private final TypeHandler[] typeHandlers;
- 
+
     private final LanguageDriver[] languageDrivers;
- 
+
     private final ResourceLoader resourceLoader;
- 
+
     private final DatabaseIdProvider databaseIdProvider;
- 
+
     private final List<ConfigurationCustomizer> configurationCustomizers;
- 
+
     private final List<MybatisPlusPropertiesCustomizer> mybatisPlusPropertiesCustomizers;
- 
+
     private final ApplicationContext applicationContext;
- 
- 
+
+
     public MybatisPlusAutoConfiguration(MybatisPlusProperties properties,
                                         ObjectProvider<Interceptor[]> interceptorsProvider,
                                         ObjectProvider<TypeHandler[]> typeHandlersProvider,
@@ -270,7 +270,7 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
         this.mybatisPlusPropertiesCustomizers = mybatisPlusPropertiesCustomizerProvider.getIfAvailable();
         this.applicationContext = applicationContext;
     }
- 
+
     @Override
     public void afterPropertiesSet() {
         if (!CollectionUtils.isEmpty(mybatisPlusPropertiesCustomizers)) {
@@ -278,7 +278,7 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
         }
         checkConfigFileExists();
     }
- 
+
     private void checkConfigFileExists() {
         if (this.properties.isCheckConfigLocation() && StringUtils.hasText(this.properties.getConfigLocation())) {
             Resource resource = this.resourceLoader.getResource(this.properties.getConfigLocation());
@@ -286,7 +286,7 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
                 "Cannot find config location: " + resource + " (please add config file or check your Mybatis configuration)");
         }
     }
- 
+
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     @ConditionalOnMissingBean
@@ -323,14 +323,14 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
         if (!ObjectUtils.isEmpty(this.properties.resolveMapperLocations())) {
             factory.setMapperLocations(this.properties.resolveMapperLocations());
         }
- 
+
         // TODO 对源码做了一定的修改(因为源码适配了老旧的mybatis版本,但我们不需要适配)
         Class<? extends LanguageDriver> defaultLanguageDriver = this.properties.getDefaultScriptingLanguageDriver();
         if (!ObjectUtils.isEmpty(this.languageDrivers)) {
             factory.setScriptingLanguageDrivers(this.languageDrivers);
         }
         Optional.ofNullable(defaultLanguageDriver).ifPresent(factory::setDefaultScriptingLanguageDriver);
- 
+
         // TODO 自定义枚举包
         if (StringUtils.hasLength(this.properties.getTypeEnumsPackage())) {
             factory.setTypeEnumsPackage(this.properties.getTypeEnumsPackage());
@@ -359,7 +359,7 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
         factory.setGlobalConfig(globalConfig);
         return factory.getObject();
     }
- 
+
     // TODO 入参使用 MybatisSqlSessionFactoryBean
     private void applyConfiguration(MybatisSqlSessionFactoryBean factory) {
         // TODO 使用 MybatisConfiguration
@@ -374,7 +374,7 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
         }
         factory.setConfiguration(configuration);
     }
- 
+
     @Bean
     @ConditionalOnMissingBean
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
@@ -385,31 +385,31 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
             return new SqlSessionTemplate(sqlSessionFactory);
         }
     }
- 
+
     /**
      * This will just scan the same base package as Spring Boot does. If you want more power, you can explicitly use
      * {@link org.mybatis.spring.annotation.MapperScan} but this will get typed mappers working correctly, out-of-the-box,
      * similar to using Spring Data JPA repositories.
      */
     public static class AutoConfiguredMapperScannerRegistrar implements BeanFactoryAware, ImportBeanDefinitionRegistrar {
- 
+
         private BeanFactory beanFactory;
- 
+
         @Override
         public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
- 
+
             if (!AutoConfigurationPackages.has(this.beanFactory)) {
                 logger.debug("Could not determine auto-configuration package, automatic mapper scanning disabled.");
                 return;
             }
- 
+
             logger.debug("Searching for mappers annotated with @Mapper");
- 
+
             List<String> packages = AutoConfigurationPackages.get(this.beanFactory);
             if (logger.isDebugEnabled()) {
                 packages.forEach(pkg -> logger.debug("Using auto-configuration base package '{}'", pkg));
             }
- 
+
             BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(MapperScannerConfigurer.class);
             builder.addPropertyValue("processPropertyPlaceHolders", true);
             builder.addPropertyValue("annotationClass", Mapper.class);
@@ -421,13 +421,13 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
                 .ifPresent(x -> builder.addPropertyValue("lazyInitialization", "${mybatis.lazy-initialization:false}"));
             registry.registerBeanDefinition(MapperScannerConfigurer.class.getName(), builder.getBeanDefinition());
         }
- 
+
         @Override
         public void setBeanFactory(BeanFactory beanFactory) {
             this.beanFactory = beanFactory;
         }
     }
- 
+
     /**
      * If mapper registering configuration or mapper scanning configuration not present, this configuration allow to scan
      * mappers based on the same component-scanning path as Spring Boot itself.
@@ -436,7 +436,7 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
     @Import(AutoConfiguredMapperScannerRegistrar.class)
     @ConditionalOnMissingBean({MapperFactoryBean.class, MapperScannerConfigurer.class})
     public static class MapperScannerRegistrarNotFoundConfiguration implements InitializingBean {
- 
+
         @Override
         public void afterPropertiesSet() {
             logger.debug(
@@ -509,7 +509,7 @@ public class SeataAutoConfig {
 
     /**
      * init datasource proxy
-     * 
+     *
      * @Param: druidDataSource datasource bean instance
      * @Return: DataSourceProxy datasource proxy
      */

@@ -20,15 +20,15 @@ date: 2019/12/02
 
 ## 准备工作
 
-​	1.首先去nacos的github上下载[最新版本](https://github.com/alibaba/nacos/releases/tag/1.1.4)
+ 	1.首先去nacos的github上下载[最新版本](https://github.com/alibaba/nacos/releases/tag/1.1.4)
 
-​	![](/img/blog/20191202203649.png)
+ 	![](/img/blog/20191202203649.png)
 
-​	2.下载好了后,很简单,解压后到bin目录下去启动就好了,看到如图所示就成了：
+ 	2.下载好了后,很简单,解压后到bin目录下去启动就好了,看到如图所示就成了：
 
 ![](/img/blog/20191202203943.png)
 
-​	3.启动完毕后访问:http://127.0.0.1:8848/nacos/#/login
+ 	3.启动完毕后访问:http://127.0.0.1:8848/nacos/#/login
 
 ![](/img/blog/20191202204101.png)
 
@@ -42,7 +42,7 @@ date: 2019/12/02
 
 ## Seata配置
 
-​	1.进入seata的conf文件夹看到这个木有?
+ 	1.进入seata的conf文件夹看到这个木有?
 
 ![](/img/blog/20191202204259.png)
 
@@ -52,7 +52,7 @@ date: 2019/12/02
 
 ![20191202204437](/img/blog/20191202204437.png)
 
-​	2.然后记得保存哦!接着我们把registry.conf文件打开编辑：
+ 	2.然后记得保存哦!接着我们把registry.conf文件打开编辑：
 
 ```
 registry {
@@ -139,7 +139,7 @@ config {
 
 ![20191202205912](/img/blog/20191202205912.png)
 
-看到了吧,你的配置已经全部都提交上去了,如果再git工具内运行sh不行的话,试着把编辑sh文件,试试改成如下操作 
+看到了吧,你的配置已经全部都提交上去了,如果再git工具内运行sh不行的话,试着把编辑sh文件,试试改成如下操作
 
 ```shell
 for line in $(cat nacos-config.txt)
@@ -177,13 +177,13 @@ echo  "\r\n\033[41;33m init nacos config fail. \033[0m"
 fi
 ```
 
-​	3.目前我们的准备工作全部完成,我们去seata-service/bin去运行seata服务吧,如图所示就成功啦!
+ 	3.目前我们的准备工作全部完成,我们去seata-service/bin去运行seata服务吧,如图所示就成功啦!
 
 ![20191202210112](/img/blog/20191202210112.png)
 
 # 进行调试
 
-​	1.首先把springboot-dubbo-mybatsiplus-seata项目的pom的依赖更改,去除掉zk这些配置,因为我们使用nacos做注册中心了.
+ 	1.首先把springboot-dubbo-mybatsiplus-seata项目的pom的依赖更改,去除掉zk这些配置,因为我们使用nacos做注册中心了.
 
 ```java
 	<properties>
@@ -225,7 +225,7 @@ fi
 			<artifactId>fastjson</artifactId>
 			<version>1.2.60</version>
 		</dependency>
-		<!-- <dependency> <groupId>javax</groupId> <artifactId>javaee-api</artifactId> 
+		<!-- <dependency> <groupId>javax</groupId> <artifactId>javaee-api</artifactId>
 			<version>7.0</version> <scope>provided</scope> </dependency> -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -237,7 +237,7 @@ fi
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
- 
+
 		<!-- mybatis-plus begin -->
 		<dependency>
 			<groupId>com.baomidou</groupId>
@@ -256,10 +256,10 @@ fi
 			<artifactId>seata-all</artifactId>
 			<version>0.9.0.1</version>
 		</dependency>
-		<!-- <dependency> <groupId>com.baomidou</groupId> <artifactId>dynamic-datasource-spring-boot-starter</artifactId> 
+		<!-- <dependency> <groupId>com.baomidou</groupId> <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
 			<version>2.5.4</version> </dependency> -->
- 
-		<!-- <dependency> <groupId>com.baomidou</groupId> <artifactId>mybatis-plus-generator</artifactId> 
+
+		<!-- <dependency> <groupId>com.baomidou</groupId> <artifactId>mybatis-plus-generator</artifactId>
 			<version>3.1.0</version> </dependency> -->
 		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
 		<dependency>
@@ -309,7 +309,7 @@ fi
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency> <groupId>org.scala-lang</groupId> <artifactId>scala-library</artifactId> 
+		<!-- <dependency> <groupId>org.scala-lang</groupId> <artifactId>scala-library</artifactId>
 			<version>2.11.0</version> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -320,13 +320,13 @@ fi
 
 ```
 
-​	2.然后更改test-service的目录结构,删除zk的配置并更改application.yml文件,目录结构与代码:
+ 	2.然后更改test-service的目录结构,删除zk的配置并更改application.yml文件,目录结构与代码:
 
 ```yaml
 server:
   port: 38888
 spring:
-  application: 
+  application:
       name: test-service
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -356,13 +356,13 @@ mybatis-plus:
       db-type: mysql
   configuration:
     map-underscore-to-camel-case: true
-    cache-enabled: true      
+    cache-enabled: true
     auto-mapping-unknown-column-behavior: none
 ```
 
 <img src="/img/blog/20191202211833.png" alt="20191202211833"  style={{ zoom:'100%' }} />
 
-​	3.再更改registry.conf文件,如果你的nacos是其它服务器,请改成对应都ip跟端口
+ 	3.再更改registry.conf文件,如果你的nacos是其它服务器,请改成对应都ip跟端口
 
 ```java
 registry {
@@ -400,7 +400,7 @@ config {
 }
 ```
 
-​	4.接着我们运行provideApplication
+ 	4.接着我们运行provideApplication
 
 ![20191202212000](/img/blog/20191202212000.png)
 
@@ -414,7 +414,7 @@ config {
 
 ![20191202212114](/img/blog/20191202212114.png)
 
-​	5.确认服务已经被发布并测试事务运行是否正常
+ 	5.确认服务已经被发布并测试事务运行是否正常
 
 ![20191202212203](/img/blog/20191202212203.png)
 
@@ -422,7 +422,7 @@ config {
 
 ![20191202212240](/img/blog/20191202212240.png)
 
-恭喜你,看到这一定跟我一样成功了! 
+恭喜你,看到这一定跟我一样成功了!
 
 # 总结
 

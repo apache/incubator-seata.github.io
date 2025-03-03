@@ -1772,7 +1772,7 @@ The version is updated as follows:
 
 <details>
   <summary><mark>Release notes</mark></summary>
-  
+
 ### Seata 1.3.0
 
 Seata 1.3.0 Released.
@@ -1930,7 +1930,7 @@ The version is updated as follows:
 
 <details>
   <summary><mark>Release notes</mark></summary>
-  
+
 ### Seata 1.2.0
 
 Seata 1.2.0 Released.
@@ -2074,7 +2074,7 @@ The version is updated as follows:
 
 <details>
   <summary><mark>Release notes</mark></summary>
-  
+
 ### Seata 1.1.0
 
 Seata 1.1.0 Released.
@@ -2203,7 +2203,7 @@ The version is updated as follows:
 
 <details>
   <summary><mark>Release notes</mark></summary>
-  
+
 ### Seata 1.0.0
 
 Seata 1.0.0 Released.
@@ -2316,7 +2316,7 @@ The version is updated as follows:
 - [[#1920](https://github.com/apache/incubator-seata/pull/1920)] use iterator to remove timeout future.
 - [[#1907](https://github.com/apache/incubator-seata/pull/1907)] encapsulation determines the supported database type
 - [[#1903](https://github.com/apache/incubator-seata/pull/1903)] batch query branchSession by xid list
-- [[#1910](https://github.com/apache/incubator-seata/pull/1910)] all Override methods must be annotated with [@override](https://github.com/override)
+- [[#1910](https://github.com/apache/incubator-seata/pull/1910)] all Override methods must be annotated with [@override](https://github.com/override)
 - [[#1906](https://github.com/apache/incubator-seata/pull/1906)] add exception system exit code when rpcServer init.
 - [[#1897](https://github.com/apache/incubator-seata/pull/1897)] remove clientTest it's not use
 - [[#1883](https://github.com/apache/incubator-seata/pull/1883)] restructure SQLRecognizer and UndoExecutor
@@ -2433,7 +2433,7 @@ The version is updated as follows:
 - [[#1759](https://github.com/apache/incubator-seata/pull/1759)] fix saga service method not support interface type parameter
 - [[#1401](https://github.com/apache/incubator-seata/pull/1401)] fix the first registration resource is null when RM starts
 
-​
+
 
 #### optimize
 
@@ -2452,9 +2452,9 @@ The version is updated as follows:
 - [[#1756](https://github.com/apache/incubator-seata/pull/1756)] security: upgrade jackson to avoid security vulnerabilities
 - [[#1657](https://github.com/apache/incubator-seata/pull/1657)] optimize the problem of large direct buffer when file rolling in file storage mode
 
-​
-Thanks to these contributors for their code commits. Please report an unintended omission.  
-​
+
+Thanks to these contributors for their code commits. Please report an unintended omission.
+
 
 - [slievrly](https://github.com/slievrly)
 - [long187](https://github.com/long187)
@@ -2490,15 +2490,15 @@ Thanks to these contributors for their code commits. Please report an unintended
 
 <details>
   <summary><mark>Release notes</mark></summary>
-  
+
 ### Seata 0.8.1
-  
+
   Seata 0.8.1 Released.
-  
+
   Seata is an easy-to-use, high-performance, open source distributed transaction solution.
-  
+
   The version is updated as follows:
-  
+
 #### feature
 
 - [[#1598](https://github.com/apache/incubator-seata/pull/1598)] support profile to use absolute path

@@ -9,7 +9,7 @@ date: 2019/12/25
 
 spring 模块分析中讲到，Seata 的 spring 模块会对涉及到分布式业务的 bean 进行处理。项目启动时，当 GlobalTransactionalScanner 扫描到 TCC 服务的 reference 时（即tcc事务参与方），会对其进行动态代理，即给 bean 织入 TCC 模式下的 MethodInterceptor 的实现类。tcc 事务发起方依然使用 @GlobalTransactional 注解开启，织入的是通用的 MethodInterceptor 的实现类。
 
-TCC 模式下的 MethodInterceptor 实现类即 TccActionInterceptor(spring模块) ，这个类中调用了 ActionInterceptorHandler(tcc模块) 进行 TCC 模式下事务流程的处理。	
+TCC 模式下的 MethodInterceptor 实现类即 TccActionInterceptor(spring模块) ，这个类中调用了 ActionInterceptorHandler(tcc模块) 进行 TCC 模式下事务流程的处理。
 
 TCC 动态代理的主要功能是：生成TCC运行时上下文、透传业务参数、注册分支事务记录。
 
@@ -27,7 +27,7 @@ public interface TccAction {
                            @BusinessActionContextParameter(isParamInProperty = true) TccParam tccParam);
 
     public boolean commit(BusinessActionContext actionContext);
-    
+
     public boolean rollback(BusinessActionContext actionContext);
 }
 ```
@@ -43,9 +43,10 @@ cancel：释放预留资源。例：冻结余额加回账户的余额。
 其中 BusinessActionContext 封装了本次事务的上下文环境：xid、branchId、actionName 和被 @BusinessActionContextParam 注解的参数等。
 
 参与方业务有几个需要注意的地方：
-1.控制业务幂等性，需要支持同一笔事务的重复提交和重复回滚。
-2.防悬挂，即二阶段的回滚，比一阶段的 try 先执行。
-3.放宽一致性协议，最终一致，所以是读已修改
+
+1. 控制业务幂等性，需要支持同一笔事务的重复提交和重复回滚。
+2. 防悬挂，即二阶段的回滚，比一阶段的 try 先执行。
+3. 放宽一致性协议，最终一致，所以是读已修改
 
 ##  三  . remoting 包解析
 
@@ -74,7 +75,7 @@ DefaultRemotingParser 的主要方法：
     }
 ```
 
-利用 allRemotingParsers 来解析远程 bean 。allRemotingParsers是在：initRemotingParser()  中调用EnhancedServiceLoader.loadAll(RemotingParser.class) 动态进行 RemotingParser 子类的加载，即 SPI 加载机制。
+利用 allRemotingParsers 来解析远程 bean 。allRemotingParsers是在：initRemotingParser() 中调用EnhancedServiceLoader.loadAll(RemotingParser.class) 动态进行 RemotingParser 子类的加载，即 SPI 加载机制。
 
 如果想扩展，比如实现一个feign远程调用的解析类，只要把RemotingParser相关实现类写在 SPI 的配置中就可以了，扩展性很强。
 
@@ -196,7 +197,7 @@ TCCResourceManager 负责管理 TCC 模式下资源的注册、分支的注册�
 ## 四  . tcc 模式事务处理
 
 spring 模块中的 TccActionInterceptor 的 invoke() 方法在被代理的 rpc bean 被调用时执行。该方法先获取 rpc 拦截器透传过来的全局事务 xid ，然后 TCC 模式下全局事务参与者的事务流程还是交给 tcc 模块 ActionInterceptorHandler  处理。
- 
+
 也就是说，事务参与者，在项目启动的时候，被代理。真实的业务方法，在 ActionInterceptorHandler 中，通过回调执行。
 
 ```java

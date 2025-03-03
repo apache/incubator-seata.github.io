@@ -137,7 +137,7 @@ dubbo-storage-service.xml
 
 ### 步骤 2：创建 UNDO_LOG 表
 
-SEATA AT 模式需要 `UNDO_LOG` 表。你可以通过 github 获取到指定版本的undo log SQL [脚本](https://github.com/apache/incubator-seata/tree/2.x/script/client/at/db).
+SEATA AT 模式需要 `UNDO_LOG` 表。你可以通过 github 获取到指定版本的undo log SQL [脚本](https://github.com/apache/incubator-seata/tree/v1.6.1/script/client/at/db).
 
 ```sql
 CREATE TABLE IF NOT EXISTS `undo_log`
@@ -191,7 +191,7 @@ CREATE TABLE `account_tbl` (
 
 ### 步骤 4: 启动服务
 
-- 从 https://github.com/apache/incubator-seata/releases,下载服务器软件包，将其解压缩。
+- 从 [https://github.com/apache/incubator-seata/releases](https://github.com/apache/incubator-seata/releases),下载服务器软件包，将其解压缩。
 
 ```shell
 Usage: sh seata-server.sh(for linux and mac) or cmd seata-server.bat(for windows) [options]
@@ -214,7 +214,7 @@ sh seata-server.sh -p 8091 -h 127.0.0.1 -m file
 
 ### 步骤 5: 运行示例
 
-示例仓库: [seata-samples](https://github.com/apache/incubator-seata-samples)
+示例仓库: [seata-samples/at-samples](https://github.com/apache/incubator-seata-samples/tree/master/at-sample)
 
 - 启动 DubboAccountServiceStarter
 - 启动 DubboStorageServiceStarter

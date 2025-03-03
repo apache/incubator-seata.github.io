@@ -37,7 +37,7 @@ nacos-config.text
 registry.conf
 ```
 
-There are a total of five files. Among them, `file.conf` and `registry.conf` are needed in the code segments for both service consumers and providers. Note: `file.conf` and `registry.conf` must be included in the current applications in use, i.e., both service consumer and provider applications must include them. If you are using a configuration center like Nacos or ZK, `file.cnf` can be ignored. However, if `type="file"` is specified, then `file.cnf` must be used.
+There are a total of five files. Among them, `file.conf` and `registry.conf` are needed in the code segments for both service consumers and providers. Note: `file.conf` and `registry.conf` must be included in the current applications in use, i.e., both service consumer and provider applications must include them. If you are using a configuration center like Nacos or ZK, `file.conf` can be ignored. However, if `type="file"` is specified, then `file.conf` must be used.
 
 Below is the configuration information in the `registry.conf` file. The `registry` section is for the service registration center configuration, and the `config` section is for the configuration center.
 

@@ -34,7 +34,7 @@ Seata 融合 Nacos 注册中心的操作步骤非常简单，大致步骤可分�
 
 ### Client端配置注册中心
 
-在 [**application.yml**](https://github.com/apache/incubator-seata/blob/develop/script/client/spring/application.yml) 中加入对应的配置中心,其余[配置参考](https://github.com/apache/incubator-seata/tree/develop/script/client)
+在 [**application.yml**](https://github.com/apache/incubator-seata/blob/develop/script/client/spring/application.yml) 中加入对应的注册中心,其余[配置参考](https://github.com/apache/incubator-seata/tree/develop/script/client)
 
 ```yaml
 seata:

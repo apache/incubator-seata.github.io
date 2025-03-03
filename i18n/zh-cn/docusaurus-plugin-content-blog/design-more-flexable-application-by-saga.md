@@ -50,7 +50,7 @@ Seata 意为：Simple Extensible Autonomous Transaction Architecture，是一套
 
 对于事务我们都知道 ACID，也很熟悉 CAP 理论最多只能满足其中两个，所以，为了提高性能，出现了 ACID 的一个变种 BASE。ACID 强调的是一致性（CAP 中的 C），而 BASE 强调的是可用性（CAP 中的 A）。我们知道，在很多情况下，我们是无法做到强一致性的 ACID 的。特别是我们需要跨多个系统的时候，而且这些系统还不是由一个公司所提供的。BASE 的系统倾向于设计出更加有弹力的系统，在短时间内，就算是有数据不同步的风险，我们也应该允许新的交易可以发生，而后面我们在业务上将可能出现问题的事务通过补偿的方式处理掉，以保证最终的一致性。
 
-所以我们在实际开发中会进行取舍，对于更多的金融核心以上的业务系统可以采用补偿事务，补偿事务处理方面在 30 年前就提出了  Saga 理论，随着微服务的发展，近些年才逐步受到大家的关注。目前业界比较也公认 Saga 是作为长事务的解决方案。
+所以我们在实际开发中会进行取舍，对于更多的金融核心以上的业务系统可以采用补偿事务，补偿事务处理方面在 30 年前就提出了  Saga 理论，随着微服务的发展，近些年才逐步受到大家的关注。目前业界比较也公认 Saga 是作为长事务的解决方案。
 
 > [https://github.com/aphyr/dist-sagas/blob/master/sagas.pdf](https://github.com/aphyr/dist-sagas/blob/master/sagas.pdf)[1] > [http://microservices.io/patterns/data/saga.html](http://microservices.io/patterns/data/saga.html)[2]
 
@@ -64,7 +64,7 @@ Seata 意为：Simple Extensible Autonomous Transaction Architecture，是一套
 
 Camel 是实现 EIP（Enterprise Integration Patterns）企业集成模式的一款开源产品，它基于事件驱动的架构，有着良好的性能和吞吐量，它在 2.21 版本新增加了 Saga EIP。
 
-Saga EIP 提供了一种方式可以通过 camel route 定义一系列有关联关系的 Action，这些 Action 要么都执行成功，要么都回滚，Saga 可以协调任何通讯协议的分布式服务或本地服务，并达到全局的最终一致性。Saga 不要求整个处理在短时间内完成，因为它不占用任何数据库锁，它可以支持需要长时间处理的请求，从几秒到几天，Camel 的 Saga EIP 是基于  [Microprofile 的 LRA](https://github.com/eclipse/microprofile-sandbox/tree/master/proposals/0009-LRA)[3]（Long Running Action），同样也是支持协调任何通讯协议任何语言实现的分布式服务。
+Saga EIP 提供了一种方式可以通过 camel route 定义一系列有关联关系的 Action，这些 Action 要么都执行成功，要么都回滚，Saga 可以协调任何通讯协议的分布式服务或本地服务，并达到全局的最终一致性。Saga 不要求整个处理在短时间内完成，因为它不占用任何数据库锁，它可以支持需要长时间处理的请求，从几秒到几天，Camel 的 Saga EIP 是基于  [Microprofile 的 LRA](https://github.com/eclipse/microprofile-sandbox/tree/master/proposals/0009-LRA)[3]（Long Running Action），同样也是支持协调任何通讯协议任何语言实现的分布式服务。
 
 Saga 的实现不会对数据进行加锁，而是在给操作定义它的“补偿操作”，当正常流程执行出错的时候触发那些已经执行过的操作的“补偿操作”，将流程回滚掉。“补偿操作”可以在 Camel route 上用 Java 或 XML DSL（Definition Specific Language）来定义。
 
@@ -116,7 +116,7 @@ XML DSL 示例：
 
 ## Eventuate Tram Saga
 
-[Eventuate Tram Saga](https://github.com/eventuate-tram/eventuate-tram-sagas)[4]  框架是使用 JDBC / JPA 的 Java 微服务的一个 Saga 框架。它也和 Camel Saga 一样采用了  Java DSL 来定义补偿操作：
+[Eventuate Tram Saga](https://github.com/eventuate-tram/eventuate-tram-sagas)[4]  框架是使用 JDBC / JPA 的 Java 微服务的一个 Saga 框架。它也和 Camel Saga 一样采用了  Java DSL 来定义补偿操作：
 
 ```java
 public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
@@ -152,13 +152,13 @@ public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
 
 ## Apache ServiceComb Saga
 
-[ServiceComb Saga](https://github.com/apache/incubator-servicecomb-saga)[5]  也是一个微服务应用的数据最终一致性解决方案。相对于  [TCC](http://design.inf.usi.ch/sites/default/files/biblio/rest-tcc.pdf)  而言，在 try 阶段，Saga 会直接提交事务，后续 rollback 阶段则通过反向的补偿操作来完成。与前面两种不同是它是采用 Java 注解+拦截器的方式来进行“补偿”服务的定义。<br />
+[ServiceComb Saga](https://github.com/apache/incubator-servicecomb-saga)[5]  也是一个微服务应用的数据最终一致性解决方案。相对于  [TCC](http://design.inf.usi.ch/sites/default/files/biblio/rest-tcc.pdf)  而言，在 try 阶段，Saga 会直接提交事务，后续 rollback 阶段则通过反向的补偿操作来完成。与前面两种不同是它是采用 Java 注解+拦截器的方式来进行“补偿”服务的定义。<br />
 
 <a name="ouwrmp"></a>
 
 #### 架构：
 
-Saga 是由  **alpha**  和  **omega **组成，其中：
+Saga 是由  **alpha**  和  **omega **组成，其中：
 
 - alpha 充当协调者的角色，主要负责对事务进行管理和协调；<br />
 - omega 是微服务中内嵌的一个 agent，负责对网络请求进行拦截并向 alpha 上报事务事件；<br />
@@ -268,7 +268,7 @@ Seata Saga 采用了状态机+DSL 方案来实现，原因有以下几个：
 
 4. 可以实现服务编排需求，支持单项选择、并发、异步、子状态机、参数转换、参数映射、服务执行状态判断、异常捕获等功能；
 
-假设有一个业务流程要调两个服务，先调库存扣减（InventoryService），再调余额扣减（BalanceService），保证在一个分布式内要么同时成功，要么同时回滚。两个参与者服务都有一个 reduce 方法，表示库存扣减或余额扣减，还有一个 compensateReduce 方法，表示补偿扣减操作。以  InventoryService 为例看一下它的接口定义：
+假设有一个业务流程要调两个服务，先调库存扣减（InventoryService），再调余额扣减（BalanceService），保证在一个分布式内要么同时成功，要么同时回滚。两个参与者服务都有一个 reduce 方法，表示库存扣减或余额扣减，还有一个 compensateReduce 方法，表示补偿扣减操作。以  InventoryService 为例看一下它的接口定义：
 
 ```java
 public interface InventoryService {
@@ -386,7 +386,7 @@ public interface InventoryService {
 }
 ```
 
-状态语言在一定程度上参考了  [AWS Step Functions](https://docs.aws.amazon.com/zh_cn/step-functions/latest/dg/tutorial-creating-lambda-state-machine.html)[7]。
+状态语言在一定程度上参考了  [AWS Step Functions](https://docs.aws.amazon.com/zh_cn/step-functions/latest/dg/tutorial-creating-lambda-state-machine.html)[7]。
 
 <a name="2de9b28a"></a>
 
@@ -412,7 +412,7 @@ public interface InventoryService {
 - ServiceName: 服务名称，通常是服务的 beanId；
 - ServiceMethod: 服务方法名称；
 - CompensateState: 该"状态"的补偿"状态"；
-- Input: 调用服务的输入参数列表，是一个数组，对应于服务方法的参数列表， $.表示使用表达式从状态机上下文中取参数，表达使用的  [SpringEL](https://docs.spring.io/spring/docs/4.3.10.RELEASE/spring-framework-reference/html/expressions.html)[8]， 如果是常量直接写值即可；
+- Input: 调用服务的输入参数列表，是一个数组，对应于服务方法的参数列表， $.表示使用表达式从状态机上下文中取参数，表达使用的  [SpringEL](https://docs.spring.io/spring/docs/4.3.10.RELEASE/spring-framework-reference/html/expressions.html)[8]， 如果是常量直接写值即可；
 - Output: 将服务返回的参数赋值到状态机上下文中，是一个 map 结构，key 为放入到状态机上文时的 key（状态机上下文也是一个 map），value 中 $. 是表示 SpringEL 表达式，表示从服务的返回参数中取值，#root 表示服务的整个返回参数；
 - Status: 服务执行状态映射，框架定义了三个状态，SU 成功、FA 失败、UN 未知，我们需要把服务执行的状态映射成这三个状态，帮助框架判断整个事务的一致性，是一个 map 结构，key 是条件表达式，一般是取服务的返回值或抛出的异常进行判断，默认是 SpringEL 表达式判断服务返回参数，带 $Exception\{开头表示判断异常类型，value 是当这个条件表达式成立时则将服务执行状态映射成这个值；
 - Catch: 捕获到异常后的路由；

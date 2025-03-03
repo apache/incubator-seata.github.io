@@ -119,7 +119,7 @@ XML DSL sample:
 
 ## Eventuate Tram Saga
 
-[Eventuate Tram Saga](https://github.com/eventuate-tram/eventuate-tram-sagas)[4] The framework is a Saga framework for Java microservices using JDBC/JPA. Similar to Camel Saga, it also adopts Java DSL to define compensating operations:
+[Eventuate Tram Saga](https://github.com/eventuate-tram/eventuate-tram-sagas)[4] The framework is a Saga framework for Java microservices using JDBC/JPA. Similar to Camel Saga, it also adopts Java DSL to define compensating operations:
 
 ```java
 public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {

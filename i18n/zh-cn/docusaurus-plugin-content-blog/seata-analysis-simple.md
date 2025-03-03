@@ -229,56 +229,56 @@ rollback\_info保存的undo\_log详细信息，是longblob类型的，结构如�
 
 ```json
 {
-    "branchId":3958194,
-    "sqlUndoLogs":[
-        {
-            "afterImage":{
-                "rows":[
-                    {
-                        "fields":[
-                            {
-                                "keyType":"PrimaryKey",
-                                "name":"ID",
-                                "type":4,
-                                "value":10
-                            },
-                            {
-                                "keyType":"NULL",
-                                "name":"COUNT",
-                                "type":4,
-                                "value":98
-                            }
-                        ]
-                    }
-                ],
-                "tableName":"storage_tbl"
-            },
-            "beforeImage":{
-                "rows":[
-                    {
-                        "fields":[
-                            {
-                                "keyType":"PrimaryKey",
-                                "name":"ID",
-                                "type":4,
-                                "value":10
-                            },
-                            {
-                                "keyType":"NULL",
-                                "name":"COUNT",
-                                "type":4,
-                                "value":100
-                            }
-                        ]
-                    }
-                ],
-                "tableName":"storage_tbl"
-            },
-            "sqlType":"UPDATE",
-            "tableName":"storage_tbl"
-        }
-    ],
-    "xid":"192.168.7.77:8091:3958193"
+    "branchId":3958194,
+    "sqlUndoLogs":[
+        {
+            "afterImage":{
+                "rows":[
+                    {
+                        "fields":[
+                            {
+                                "keyType":"PrimaryKey",
+                                "name":"ID",
+                                "type":4,
+                                "value":10
+                            },
+                            {
+                                "keyType":"NULL",
+                                "name":"COUNT",
+                                "type":4,
+                                "value":98
+                            }
+                        ]
+                    }
+                ],
+                "tableName":"storage_tbl"
+            },
+            "beforeImage":{
+                "rows":[
+                    {
+                        "fields":[
+                            {
+                                "keyType":"PrimaryKey",
+                                "name":"ID",
+                                "type":4,
+                                "value":10
+                            },
+                            {
+                                "keyType":"NULL",
+                                "name":"COUNT",
+                                "type":4,
+                                "value":100
+                            }
+                        ]
+                    }
+                ],
+                "tableName":"storage_tbl"
+            },
+            "sqlType":"UPDATE",
+            "tableName":"storage_tbl"
+        }
+    ],
+    "xid":"192.168.7.77:8091:3958193"
 }
 
 
@@ -401,7 +401,7 @@ public void commit() throws SQLException {
         }
 
         try {
-            if (context.hasUndoLog()) { 
+            if (context.hasUndoLog()) {
                 UndoLogManager.flushUndoLogs(this);
             }
             targetConnection.commit();
@@ -415,7 +415,7 @@ public void commit() throws SQLException {
         }
         report(true);
         context.reset();
-       
+
     } else {
         targetConnection.commit();
     }

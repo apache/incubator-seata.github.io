@@ -9,12 +9,12 @@ description: 本文将向你介绍如何点击了解各版本详情和升级注�
 
 ## Seata
 
-> GitHub: https://github.com/apache/incubator-seata 
-> 
+> GitHub: https://github.com/apache/incubator-seata
+>
 > 发布说明: https://github.com/apache/incubator-seata/releases
 
  ### 1.0.0 (2019-12-21)
- [source](https://github.com/apache/incubator-seata/archive/v1.0.0.zip) | 
+ [source](https://github.com/apache/incubator-seata/archive/v1.0.0.zip) |
  [binary](https://github.com/apache/incubator-seata/releases/download/v1.0.0/seata-server-1.0.0.zip)
 <details>
   <summary><mark>Release notes</mark></summary>
@@ -23,10 +23,8 @@ description: 本文将向你介绍如何点击了解各版本详情和升级注�
   Seata 1.0.0 GA版本重磅发布。
 
   Seata 是一款开源的分布式事务解决方案，提供高性能和简单易用的分布式事务服务。
-  
-  此版本更新如下：
 
-​      
+  此版本更新如下：
 
   ### feature：
   - [[#1966](https://github.com/apache/incubator-seata/pull/1966)] 增加client端单条消息发送方式
@@ -100,7 +98,7 @@ description: 本文将向你介绍如何点击了解各版本详情和升级注�
   - [[#1778](https://github.com/apache/incubator-seata/pull/1778)] 修复单元测试未清空测试资源
   - [[#1777](https://github.com/apache/incubator-seata/pull/1777)] 修复DeleteExecutor未根据数据库类型来构建前置镜像
 
-  ### optimize： 
+  ### optimize：
   - [[#2068](https://github.com/apache/incubator-seata/pull/2068)] 优化数据库连接获取
   - [[#2056](https://github.com/apache/incubator-seata/pull/2056)] 移除代码中非java doc注释
   - [[#1775](https://github.com/apache/incubator-seata/pull/1775)] 优化分支事务回滚日志输出频率
@@ -198,8 +196,8 @@ description: 本文将向你介绍如何点击了解各版本详情和升级注�
   同时，我们收到了社区反馈的很多有价值的issue和建议，非常感谢大家。
 
   ### 常用链接
-  - **Seata:** https://github.com/apache/incubator-seata  
-  - **Seata-Samples:** https://github.com/apache/incubator-seata-samples   
+  - **Seata:** https://github.com/apache/incubator-seata
+  - **Seata-Samples:** https://github.com/apache/incubator-seata-samples
   - **Release:** https://github.com/apache/incubator-seata/releases
 
 </details>
