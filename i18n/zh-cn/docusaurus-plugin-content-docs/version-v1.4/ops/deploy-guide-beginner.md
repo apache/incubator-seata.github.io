@@ -98,7 +98,7 @@ redis模式Seata-Server 1.3及以上版本支持,性能较高,存在事务信息
 #### 步骤一：添加seata依赖（建议单选）
 - 依赖seata-all
 - 依赖seata-spring-boot-starter，支持yml、properties配置(.conf可删除)，内部已依赖seata-all
-- 依赖spring-cloud-alibaba-seata，内部集成了seata，并实现了xid传递
+- 依赖spring-cloud-starter-alibaba-seata，内部集成了seata，并实现了xid传递
 
 #### 步骤二：undo_log建表、配置参数(仅AT模式)
 - <a href="/docs/user/configurations/" target="_blank">查看参数配置介绍</a>

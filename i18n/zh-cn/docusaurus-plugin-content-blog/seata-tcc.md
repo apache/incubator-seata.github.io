@@ -100,50 +100,50 @@ Seata 提供更多的 RPC 协议解析类。
 该方法目的是判断 bean 是否已被 TCC 代理，在过程中会先判断 bean 是否是一个 Remoting bean，如果是则调用 `getServiceDesc` 方法对 remoting bean
 进行解析，同时判断如果是一个发起方，则对其进行资源注册：
 
-io.seata.rm.tcc.remoting.parser.DefaultRemotingParser#parserRemotingServiceInfo
+`io.seata.rm.tcc.remoting.parser.DefaultRemotingParser#parserRemotingServiceInfo`
 
 ```java
 public RemotingDesc parserRemotingServiceInfo(Object bean,String beanName,RemotingParser remotingParser){
     RemotingDesc remotingBeanDesc=remotingParser.getServiceDesc(bean,beanName);
     if(remotingBeanDesc==null){
-    return null;
+        return null;
     }
     remotingServiceMap.put(beanName,remotingBeanDesc);
 
     Class<?> interfaceClass=remotingBeanDesc.getInterfaceClass();
     Method[]methods=interfaceClass.getMethods();
     if(remotingParser.isService(bean,beanName)){
-    try{
-    //service bean, registry resource
-    Object targetBean=remotingBeanDesc.getTargetBean();
-    for(Method m:methods){
-    TwoPhaseBusinessAction twoPhaseBusinessAction=m.getAnnotation(TwoPhaseBusinessAction.class);
-    if(twoPhaseBusinessAction!=null){
-    TCCResource tccResource=new TCCResource();
-    tccResource.setActionName(twoPhaseBusinessAction.name());
-    tccResource.setTargetBean(targetBean);
-    tccResource.setPrepareMethod(m);
-    tccResource.setCommitMethodName(twoPhaseBusinessAction.commitMethod());
-    tccResource.setCommitMethod(interfaceClass.getMethod(twoPhaseBusinessAction.commitMethod(),
-    twoPhaseBusinessAction.commitArgsClasses()));
-    tccResource.setRollbackMethodName(twoPhaseBusinessAction.rollbackMethod());
-    tccResource.setRollbackMethod(interfaceClass.getMethod(twoPhaseBusinessAction.rollbackMethod(),
-    twoPhaseBusinessAction.rollbackArgsClasses()));
-    // set argsClasses
-    tccResource.setCommitArgsClasses(twoPhaseBusinessAction.commitArgsClasses());
-    tccResource.setRollbackArgsClasses(twoPhaseBusinessAction.rollbackArgsClasses());
-    // set phase two method's keys
-    tccResource.setPhaseTwoCommitKeys(this.getTwoPhaseArgs(tccResource.getCommitMethod(),
-    twoPhaseBusinessAction.commitArgsClasses()));
-    tccResource.setPhaseTwoRollbackKeys(this.getTwoPhaseArgs(tccResource.getRollbackMethod(),
-    twoPhaseBusinessAction.rollbackArgsClasses()));
-    //registry tcc resource
-    DefaultResourceManager.get().registerResource(tccResource);
-    }
-    }
-    }catch(Throwable t){
-    throw new FrameworkException(t,"parser remoting service error");
-    }
+      try{
+        //service bean, registry resource
+        Object targetBean=remotingBeanDesc.getTargetBean();
+        for(Method m:methods){
+          TwoPhaseBusinessAction twoPhaseBusinessAction=m.getAnnotation(TwoPhaseBusinessAction.class);
+          if(twoPhaseBusinessAction!=null){
+            TCCResource tccResource=new TCCResource();
+            tccResource.setActionName(twoPhaseBusinessAction.name());
+            tccResource.setTargetBean(targetBean);
+            tccResource.setPrepareMethod(m);
+            tccResource.setCommitMethodName(twoPhaseBusinessAction.commitMethod());
+            tccResource.setCommitMethod(interfaceClass.getMethod(twoPhaseBusinessAction.commitMethod(),
+            twoPhaseBusinessAction.commitArgsClasses()));
+            tccResource.setRollbackMethodName(twoPhaseBusinessAction.rollbackMethod());
+            tccResource.setRollbackMethod(interfaceClass.getMethod(twoPhaseBusinessAction.rollbackMethod(),
+            twoPhaseBusinessAction.rollbackArgsClasses()));
+            // set argsClasses
+            tccResource.setCommitArgsClasses(twoPhaseBusinessAction.commitArgsClasses());
+            tccResource.setRollbackArgsClasses(twoPhaseBusinessAction.rollbackArgsClasses());
+            // set phase two method's keys
+            tccResource.setPhaseTwoCommitKeys(this.getTwoPhaseArgs(tccResource.getCommitMethod(),
+            twoPhaseBusinessAction.commitArgsClasses()));
+            tccResource.setPhaseTwoRollbackKeys(this.getTwoPhaseArgs(tccResource.getRollbackMethod(),
+            twoPhaseBusinessAction.rollbackArgsClasses()));
+            //registry tcc resource
+            DefaultResourceManager.get().registerResource(tccResource);
+          }
+        }
+      }catch(Throwable t){
+      throw new FrameworkException(t,"parser remoting service error");
+      }
     }
     if(remotingParser.isReference(bean,beanName)){
     //reference bean, TCC proxy
@@ -162,14 +162,14 @@ public RemotingDesc parserRemotingServiceInfo(Object bean,String beanName,Remoti
 
 Seata TCC 模式的资源叫 `TCCResource`，其资源管理器叫 `TCCResourceManager`，前面讲过，当解析完 TCC 接口 RPC 资源后，如果是发起方，则会对其进行资源注册：
 
-io.seata.rm.tcc.TCCResourceManager#registerResource
+`io.seata.rm.tcc.TCCResourceManager#registerResource`
 
 ```java
 public void registerResource(Resource resource){
     TCCResource tccResource=(TCCResource)resource;
     tccResourceCache.put(tccResource.getResourceId(),tccResource);
     super.registerResource(tccResource);
-    }
+}
 ```
 
 `TCCResource` 包含了 TCC 接口的相关信息，同时会在本地进行缓存。继续调用父类 `registerResource` 方法（封装了通信方法）向 TC 注册，TCC 资源的 resourceId 是
@@ -177,34 +177,33 @@ actionName，actionName 就是 `@TwoParseBusinessAction` 注解中的 name。
 
 **2、资源提交/回滚**
 
-io.seata.rm.tcc.TCCResourceManager#branchCommit
+`io.seata.rm.tcc.TCCResourceManager#branchCommit`
 
 ```java
 public BranchStatus branchCommit(BranchType branchType,String xid,long branchId,String resourceId,
     String applicationData)throws TransactionException{
-    TCCResource tccResource=(TCCResource)tccResourceCache.get(resourceId);
-    if(tccResource==null){
-    throw new ShouldNeverHappenException(String.format("TCC resource is not exist, resourceId: %s",resourceId));
-    }
-    Object targetTCCBean=tccResource.getTargetBean();
-    Method commitMethod=tccResource.getCommitMethod();
-    if(targetTCCBean==null||commitMethod==null){
-    throw new ShouldNeverHappenException(String.format("TCC resource is not available, resourceId: %s",resourceId));
-    }
-    try{
-    //BusinessActionContext
-    BusinessActionContext businessActionContext=getBusinessActionContext(xid,branchId,resourceId,
-    applicationData);
-    // ... ...
-    ret=commitMethod.invoke(targetTCCBean,args);
-    // ... ...
-    return result?BranchStatus.PhaseTwo_Committed:BranchStatus.PhaseTwo_CommitFailed_Retryable;
-    }catch(Throwable t){
-    String msg=String.format("commit TCC resource error, resourceId: %s, xid: %s.",resourceId,xid);
-    LOGGER.error(msg,t);
-    return BranchStatus.PhaseTwo_CommitFailed_Retryable;
-    }
-    }
+      TCCResource tccResource=(TCCResource)tccResourceCache.get(resourceId);
+      if(tccResource==null){
+        throw new ShouldNeverHappenException(String.format("TCC resource is not exist, resourceId: %s",resourceId));
+      }
+      Object targetTCCBean=tccResource.getTargetBean();
+      Method commitMethod=tccResource.getCommitMethod();
+      if(targetTCCBean==null||commitMethod==null){
+        throw new ShouldNeverHappenException(String.format("TCC resource is not available, resourceId: %s",resourceId));
+      }
+      try{
+        //BusinessActionContext
+        BusinessActionContext businessActionContext=getBusinessActionContext(xid,branchId,resourceId, applicationData);
+        // ... ...
+        ret=commitMethod.invoke(targetTCCBean,args);
+        // ... ...
+        return result?BranchStatus.PhaseTwo_Committed:BranchStatus.PhaseTwo_CommitFailed_Retryable;
+      }catch(Throwable t){
+        String msg=String.format("commit TCC resource error, resourceId: %s, xid: %s.",resourceId,xid);
+        LOGGER.error(msg,t);
+        return BranchStatus.PhaseTwo_CommitFailed_Retryable;
+      }
+}
 ```
 
 当 TM 决议二阶段提交，TC 会通过分支注册的的资源 ID 回调到对应参与者（即 TCC 接口发起方）服务中执行 TCC Resource 的 Confirm/Cancel 方法。
@@ -220,7 +219,7 @@ public BranchStatus branchCommit(BranchType branchType,String xid,long branchId,
 
 执行方法`io.seata.spring.util.TCCBeanParserUtils#isTccAutoProxy`除了对 TCC 接口资源进行解析，还会判断 TCC 接口是否为调用方，如果是调用方则返回 true：
 
-io.seata.spring.annotation.GlobalTransactionScanner#wrapIfNecessary
+`io.seata.spring.annotation.GlobalTransactionScanner#wrapIfNecessary`
 
 <img src="/img/blog/20220116192544.png" alt="img" style={{ zoom:'50%' }} />
 
@@ -238,17 +237,17 @@ public Object proceed(Method method,Object[]arguments,String xid,TwoPhaseBusines
     String branchId=doTccActionLogStore(method,arguments,businessAction,actionContext);
     // ... ...
     try{
-    // ... ...
-    return targetCallback.execute();
+      // ... ...
+      return targetCallback.execute();
     }finally{
-    try{
-    //to report business action context finally if the actionContext.getUpdated() is true
-    BusinessActionContextUtil.reportContext(actionContext);
-    }finally{
-    // ... ...
+      try{
+        //to report business action context finally if the actionContext.getUpdated() is true
+        BusinessActionContextUtil.reportContext(actionContext);
+      }finally{
+        // ... ...
+      }
     }
-    }
-    }
+}
 ```
 
 以上，在执行 TCC 接口一阶段之前，会调用 `doTccActionLogStore` 方法分支注册，同时还会将 TCC 相关信息比如参数放置在上下文，上面讲的资源提交/回滚就会用到这个上下文。
@@ -296,8 +295,7 @@ Seata 是如何处理幂等问题的呢？
 
 ## 如何处理悬挂
 
-悬挂指的是二阶段 Cancel 方法比 一阶段 Try 方法优先执行，由于允许空回滚的原因，在执行完二阶段 Cancel 方法之后直接空回滚返回成功，此时全局事务已结束，但是由于 Try 方法随后执行，这就会造成一阶段 Try
-方法预留的资源永远无法提交和释放了。
+悬挂指的是二阶段 Cancel 方法比 一阶段 Try 方法优先执行，由于允许空回滚的原因，在执行完二阶段 Cancel 方法之后直接空回滚返回成功，此时全局事务已结束，但是由于 Try 方法随后执行，这就会造成一阶段 Try 方法预留的资源永远无法提交和释放了。
 
 那么悬挂是如何产生的呢？
 

@@ -113,7 +113,7 @@ step2：使用 Nacos api 订阅。
 存储层的实现对于 Seata 是否高性能，是否可靠非常关键。
 如果存储层没有实现好，那么如果发生宕机，在 TC 中正在进行分布式事务处理的数据将会被丢失，既然使用了分布式事务，那么其肯定不能容忍丢失。如果存储层实现好了，但是其性能有很大问题，RM 可能会发生频繁回滚那么其完全无法应对高并发的场景。
 
-在 Seata 中默认提供了文件方式的存储，下面我们定义我们存储的数据为 Session，而我们的 TM 创造的全局事务操作数据叫 GloabSession，RM 创造的分支事务操作数据叫 BranchSession，一个 GloabSession 可以拥有多个 BranchSession。我们的目的就是要将这么多 Session 存储下来。
+在 Seata 中默认提供了文件方式的存储，下面我们定义我们存储的数据为 Session，而我们的 TM 创造的全局事务操作数据叫 GlobalSession，RM 创造的分支事务操作数据叫 BranchSession，一个 GlobalSession 可以拥有多个 BranchSession。我们的目的就是要将这么多 Session 存储下来。
 
 在 FileTransactionStoreManager#writeSession 代码中:
 
@@ -212,16 +212,19 @@ Seata 目前允许配置的传输层配置如图所示，用户可根据需要�
 
 step1：判断是否是读空闲的检测事件。
 
-step2：如果是则断开链接，关闭资源。  
+step2：如果是则断开链接，关闭资源。
 另外 Seata 做了内存池、客户端做了批量小包合并发送、Netty 连接池（减少连接创建时的服务不可用时间）等功能，以下为批量小包合并功能。
 
 ![](/img/seata-server/send.png)
 
 客户端的消息发送并不是真正的消息发送通过 AbstractRpcRemoting#sendAsyncRequest 包装成 RpcMessage 存储至 basket 中并唤醒合并发送线程。合并发送线程通过 while true 的形式
-最长等待 1ms 对 basket 的消息取出包装成 merge 消息进行真正发送，此时若 channel 出现异常则会通过 fail-fast 快速失败返回结果。merge 消息发送前在 map 中标识，收到结果后批量确认（AbstractRpcRemotingClient#channelRead），并通过 dispatch 分发至 messageListener 和 handler 去处理。同时，timerExecutor 定时对已发送消息进行超时检测，若超时置为失败。具体消息协议设计将会在后续的文章中给出，敬请关注。  
-Seata 的 Netty Client 由 TMClient 和 RMClient 组成，根据事务角色功能区分，都继承 AbstractRpcRemotingClient，AbstractRpcRemotingClient 实现了 RemotingService（服务启停）, RegisterMsgListener（netty 连接池连接创建回调）和 ClientMessageSender（消息发送）继承了 AbstractRpcRemoting（ Client 和 Server 顶层消息发送和处理的模板）。  
+最长等待 1ms 对 basket 的消息取出包装成 merge 消息进行真正发送，此时若 channel 出现异常则会通过 fail-fast 快速失败返回结果。merge 消息发送前在 map 中标识，收到结果后批量确认（AbstractRpcRemotingClient#channelRead），并通过 dispatch 分发至 messageListener 和 handler 去处理。同时，timerExecutor 定时对已发送消息进行超时检测，若超时置为失败。具体消息协议设计将会在后续的文章中给出，敬请关注。
+Seata 的 Netty Client 由 TMClient 和 RMClient 组成，根据事务角色功能区分，都继承 AbstractRpcRemotingClient，AbstractRpcRemotingClient 实现了 RemotingService（服务启停）, RegisterMsgListener（netty 连接池连接创建回调）和 ClientMessageSender（消息发送）继承了 AbstractRpcRemoting（ Client 和 Server 顶层消息发送和处理的模板）。
+
 RMClient 类关系图如下图所示：
+
 ![](/img/seata-server/class.png)
+
 TMClient 和 RMClient 又会根据自身的 poolConfig 配置与 NettyPoolableFactory implements KeyedPoolableObjectFactory\<NettyPoolKey, Channel> 进行 channel 连接的交互，channel 连接池根据角色 key+ip 作为连接池的 key 来定位各个连接池
 ，连接池对 channel 进行统一的管理。TMClient 和 RMClient 在发送过程中对于每个 ip 只会使用一个长连接，但连接不可用时，会从连接池中快速取出已经创建好并可用的连接，减少服务的不可用时间。
 
@@ -277,7 +280,7 @@ step6：将本地 IP 和监听端口设置到 XID 中，初始化 rpcServer 等�
 
 ![](/img/seata-server/begin.png)
 
-step1： 根据应用 ID，事务分组，名字，超时时间创建一个 GloabSession，这个在前面也提到过它和 branchSession 分别是什么。
+step1： 根据应用 ID，事务分组，名字，超时时间创建一个 GlobalSession，这个在前面也提到过它和 branchSession 分别是什么。
 
 step2：对其添加一个 RootSessionManager 用于监听一些事件，这里要说一下目前在 Seata 里面有四种类型的 Listener(这里要说明的是所有的 sessionManager 都实现了 SessionLifecycleListener)：
 
@@ -321,7 +324,7 @@ step5：返回 branchId,这个 ID 也很重要，我们后续需要用它来回�
 
 step1：首先找到我们的 globalSession。如果它为 null 证明已经被 commit 过了，那么直接幂等操作，返回成功。
 
-step2：关闭我们的 GloabSession 防止再次有新的 branch 进来(跨服务调用超时回滚，provider 在继续执行)。
+step2：关闭我们的 GlobalSession 防止再次有新的 branch 进来(跨服务调用超时回滚，provider 在继续执行)。
 
 step3：如果 status 是等于 Begin，那么久证明还没有提交过，改变其状态为 Committing 也就是正在提交。
 
@@ -354,5 +357,5 @@ Seata GitHub 地址：https://github.com/apache/incubator-seata
 
 本文作者：
 
-李钊，GitHub ID @CoffeeLatte007，公众号「咖啡拿铁」作者，Seata 社区 Committer，猿辅导 Java 工程师，曾就职于美团。对分布式中间件，分布式系统有浓厚的兴趣。  
+李钊，GitHub ID @CoffeeLatte007，公众号「咖啡拿铁」作者，Seata 社区 Committer，猿辅导 Java 工程师，曾就职于美团。对分布式中间件，分布式系统有浓厚的兴趣。
 季敏(清铭)，GitHub ID @slievrly，Seata 开源项目负责人，阿里巴巴中间件 TXC/GTS 核心研发成员，长期从事于分布式中间件核心研发工作，在分布式事务领域有着较丰富的技术积累。

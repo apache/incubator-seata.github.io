@@ -14,7 +14,7 @@ Eureka是 Seata 组件中重要的注册中心实现.
 
 ## 快速上手
 
-Seata 融合 Eureka注册中心的操作步骤非常简单，大致步骤可分为“增加 Maven 依赖”以及“配置注册中心“。
+Seata 融合 Eureka注册中心的操作步骤非常简单，大致步骤可分为“增加 Maven 依赖”以及“配置注册中心”。
 
 ### 增加 Maven 依赖
 
@@ -70,7 +70,7 @@ seata:
 ```
 registry {
   type = "eureka"
- 
+
   eureka {
     serviceUrl = "http://localhost:8761/eureka"
     application = "seata-server"

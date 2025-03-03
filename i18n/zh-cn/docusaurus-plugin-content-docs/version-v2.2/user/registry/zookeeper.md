@@ -16,13 +16,9 @@ ZooKeeper版本建议 3.4.13及以上，下文以 ZooKeeper 3.4.14版本为例
 
 当您准备将 **Seata** 注册到 ZooKeeper 之前，请确保已经启动 ZooKeeper 服务。如果您尚且不熟悉 ZooKeeper 的基本使用的话，可先行参考 [ZooKeeper官方文档](https://zookeeper.apache.org/doc/r3.4.14/index.html)
 
-
-
 ## 快速上手
 
 Seata 融合 ZooKeeper 注册中心的操作步骤非常简单，大致步骤可分为"Server端配置"以及"Client端配置"。
-
-
 
 ### Server端配置
 
@@ -51,9 +47,7 @@ seata:
 ```
 
 
-
 ### Client端配置
-
 
 如果使用`io.seata:seata-spring-boot-starter`依赖，需要在 application.yml 中加入如下zookeeper的配置项，其余[配置参考](https://github.com/apache/incubator-seata/blob/2.x/script/client/spring/application.yml)
 
@@ -80,7 +74,7 @@ seata:
   vgroupMapping.default_tx_group = "default"
 ```
 
-并在`registry.conf`文件中加入zookeeper的配置项，其余[配置参考](https://github.com/apache/incubator-seata/tree/2.x/script/client/conf)
+并在`registry.conf`文件中加入zookeeper的配置项，其余[配置参考](https://github.com/apache/incubator-seata/tree/v2.0.0/script/client/conf)
 
 ```
   zk {
@@ -91,6 +85,7 @@ seata:
     password = ""
   }
 ```
+
 Client 配置完成后启动应用并稍待片刻，即可正式体验 Seata 服务
 
 
