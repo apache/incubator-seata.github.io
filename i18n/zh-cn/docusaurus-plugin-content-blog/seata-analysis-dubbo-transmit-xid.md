@@ -12,7 +12,7 @@ date: 2020/01/01
 
 # 前言
 
-​ 1.首先来看下包结构,在 seata-dubbo 和 seata-dubbo-alibaba 下有统一由 TransactionPropagationFilter 这个类,分别对应 apache-dubbo 跟 alibaba-dubbo.
+  1.首先来看下包结构,在 seata-dubbo 和 seata-dubbo-alibaba 下有统一由 TransactionPropagationFilter 这个类,分别对应 apache-dubbo 跟 alibaba-dubbo.
 
 ![20200101203229](/img/blog/20200101203229.png)
 
@@ -104,13 +104,13 @@ public class TransactionPropagationFilter implements Filter {
 }
 ```
 
-​ 1.根据源码,我们可以推出相应的逻辑处理
+  1.根据源码,我们可以推出相应的逻辑处理
 
 ![20200101213336](/img/blog/20200101213336.png)
 
 ## 要点知识
 
-​ 1.Dubbo @Activate 注解:
+  1.Dubbo @Activate 注解:
 
 ```java
 @Documented
@@ -156,7 +156,7 @@ public @interface Activate {
 
 可以分析得知,Seata 的 dubbo 过滤器上的注解@Activate(group = \{Constants.PROVIDER, Constants.CONSUMER}, order = 100),表示 dubbo 的服务提供方跟消费方都会触发到这个过滤器,所以我们的 Seata 发起者会产生一个 XID 的传递,上述流程图跟代码已经很清晰的表示了.
 
-​ 2.Dubbo 隐式传参可以通过 `RpcContext` 上的 `setAttachment` 和 `getAttachment` 在服务消费方和提供方之间进行参数的隐式传递。
+  2.Dubbo 隐式传参可以通过 `RpcContext` 上的 `setAttachment` 和 `getAttachment` 在服务消费方和提供方之间进行参数的隐式传递。
 
 获取:RpcContext.getContext().getAttachment(RootContext.KEY_XID);
 

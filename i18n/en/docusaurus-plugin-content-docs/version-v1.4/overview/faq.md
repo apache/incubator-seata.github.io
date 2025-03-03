@@ -76,7 +76,7 @@ description: Seata FAQ.
 <a href="#23" target="_self">23.Spring boot 1.5.x appear the Jackson related NoClassDefFoundException?</a>
 <br/>
 
-<a href="#24" target="_self">24.SpringCloud xid cannot transmit?</a>
+<a href="#24" target="_self">24.SpringCloud xid cannot transmit?</a>
 <br/>
 
 <a href="#25" target="_self">25.undo_log cannot be deleted after using the mybatis plus dynamic data source component?</a>
@@ -201,7 +201,7 @@ abnormal：io.seata.common.exception.FrameworkException: can not register RM,err
    Error: A fatal exception has occurred. Program will exit.
 ```
 
-​ If the environment is sh, replace the last paragraph in the script：
+  If the environment is sh, replace the last paragraph in the script：
 
 ```shell
         exec "$JAVACMD" $JAVA_OPTS -server -Xmx2048m -Xms2048m -Xmn1024m -Xss512k -XX:SurvivorRatio=10 -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m -XX:
@@ -245,7 +245,7 @@ when the undolog serialization is configured as Jackson, the Jackson version nee
 <h3 id='10'>Q: 10. Why didn't my mybatis operation return auto-generated ID? </h3>
 
 **A:**
-plan1.You should update the configuraton of `mybatis`: set annotation `@Options(useGeneratedKeys = true, keyProperty = "id")` or set the value of useGeneratedKeys and keyProperty in `mybatis` xml configuraton  
+plan1.You should update the configuraton of `mybatis`: set annotation `@Options(useGeneratedKeys = true, keyProperty = "id")` or set the value of useGeneratedKeys and keyProperty in `mybatis` xml configuraton
 plan2.Delete the id field of the undo_log table
 
 ---
@@ -430,8 +430,8 @@ Examples：
 @GlobalTransactional(timeout=60000)
 public void A（）\{
 
-​ call remoting B();//Remote call B service
-​ local DB operation;
+  call remoting B();//Remote call B service
+  local DB operation;
 
 }
 

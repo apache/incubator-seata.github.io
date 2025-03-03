@@ -61,7 +61,7 @@ func (c *client) connect() {
             // 收发报文
 			ss.(*session).run()
 			// 此处省略部分代码
-      
+
 			break
 		}
 		// don't distinguish between tcp connection and websocket connection. Because
@@ -145,7 +145,7 @@ func (c *client) dialTCP() Session {
 ```go
 func (s *session) run() {
 	// 省略部分代码
-  
+
 	go s.handleLoop()
 	go s.handlePackage()
 }
@@ -158,13 +158,13 @@ func (s *session) run() {
 ```go
 func (s *session) handleLoop() {
     // 省略部分代码
-  
+
 	for {
 		// A select blocks until one of its cases is ready to run.
 		// It choose one at random if multiple are ready. Otherwise it choose default branch if none is ready.
 		select {
 		// 省略部分代码
-      
+
 		case outPkg, ok = <-s.wQ:
 			// 省略部分代码
 
@@ -173,7 +173,7 @@ func (s *session) handleLoop() {
         // 通过 s.writer 将 interface{} 类型的 outPkg 编码成二进制的比特
 				pkgBytes, err = s.writer.Write(s, outPkg)
 				// 省略部分代码
-        
+
 				iovec = append(iovec, pkgBytes)
 
                 //省略部分代码
@@ -252,11 +252,11 @@ func (s *session) handleTCPPackage() error {
             // 从 TCP 连接中收到报文
 			bufLen, err = conn.recv(buf)
 			// 省略部分代码
-      
+
 			break
 		}
 		// 省略部分代码
-    
+
         // 将收到的报文二进制比特写入 pkgBuf
 		pktBuf.Write(buf[:bufLen])
 		for {
@@ -331,7 +331,7 @@ func NewTaskPoolSimple(size int) GenericTaskPool {
 ```
 
 
-构建了一个缓冲大小为 size （默认为  `runtime.NumCPU() * 100`） 的 channel `sem`。再看方法 `AddTaskAlways(t task)`：
+构建了一个缓冲大小为 size （默认为  `runtime.NumCPU() * 100`） 的 channel `sem`。再看方法 `AddTaskAlways(t task)`：
 
 
 ```go
@@ -359,7 +359,7 @@ func (p *taskPoolSimple) AddTaskAlways(t task) {
 ```
 
 
-加入的任务，会先由 len(p.sem) 个 goroutine 去消费，如果没有 goroutine 空闲，则会启动一个临时的 goroutine 去运行 t()。相当于有  len(p.sem) 个 goroutine 组成了 goroutine pool，pool 中的 goroutine 去处理业务逻辑，而不是由处理网络报文的 goroutine 去运行业务逻辑，从而实现了解耦。写 seata-golang 时遇到的一个坑，就是忘记设置 taskPool 造成了处理业务逻辑和处理底层网络报文逻辑的 goroutine 是同一个，我在业务逻辑中阻塞等待一个任务完成时，阻塞了整个 goroutine，使得阻塞期间收不到任何报文。
+加入的任务，会先由 len(p.sem) 个 goroutine 去消费，如果没有 goroutine 空闲，则会启动一个临时的 goroutine 去运行 t()。相当于有  len(p.sem) 个 goroutine 组成了 goroutine pool，pool 中的 goroutine 去处理业务逻辑，而不是由处理网络报文的 goroutine 去运行业务逻辑，从而实现了解耦。写 seata-golang 时遇到的一个坑，就是忘记设置 taskPool 造成了处理业务逻辑和处理底层网络报文逻辑的 goroutine 是同一个，我在业务逻辑中阻塞等待一个任务完成时，阻塞了整个 goroutine，使得阻塞期间收不到任何报文。
 
 
 ### 4. 具体实现
@@ -420,7 +420,7 @@ type EventListener interface {
 ```
 
 
-通过对整个 getty 代码的分析，我们只要实现  `ReadWriter` 来对 RPC  消息编解码，再实现 `EventListener` 来处理 RPC 消息的对应的具体逻辑，将 `ReadWriter` 实现和 `EventLister` 实现注入到 RPC 的 Client 和 Server 端，则可实现 RPC 通信。
+通过对整个 getty 代码的分析，我们只要实现  `ReadWriter` 来对 RPC  消息编解码，再实现 `EventListener` 来处理 RPC 消息的对应的具体逻辑，将 `ReadWriter` 实现和 `EventLister` 实现注入到 RPC 的 Client 和 Server 端，则可实现 RPC 通信。
 
 
 #### 4.1 编解码协议实现
@@ -466,7 +466,7 @@ func MessageDecoder(codecType byte, in []byte) (interface{}, int) {
 
 ```go
 func (client *RpcRemoteClient) OnOpen(session getty.Session) error {
-	go func() 
+	go func()
 		request := protocal.RegisterTMRequest{AbstractIdentifyRequest: protocal.AbstractIdentifyRequest{
 			ApplicationId:           client.conf.ApplicationId,
 			TransactionServiceGroup: client.conf.TransactionServiceGroup,
@@ -507,7 +507,7 @@ func (client *RpcRemoteClient) OnMessage(session getty.Session, pkg interface{})
 	if rpcMessage.MessageType == protocal.MSGTYPE_RESQUEST ||
 		rpcMessage.MessageType == protocal.MSGTYPE_RESQUEST_ONEWAY {
 		log.Debugf("msgId:%s, body:%v", rpcMessage.Id, rpcMessage.Body)
-      
+
 		// 处理事务消息，提交 or 回滚
 		client.onMessage(rpcMessage, session.RemoteAddr())
 	} else {
@@ -688,7 +688,7 @@ var (
 
 ## 三、seata-golang 的未来
 
-[seata-golang](https://github.com/opentrx/seata-golang)  从今年 4 月份开始开发，到 8 月份基本实现和 java 版 [seata 1.2](https://github.com/apache/incubator-seata) 协议的互通，对 mysql 数据库实现了 AT 模式（自动协调分布式事务的提交回滚），实现了 TCC 模式，TC 端使用 mysql 存储数据，使 TC 变成一个无状态应用支持高可用部署。下图展示了 AT 模式的原理：![image20201205-232516.png]( https://img.alicdn.com/imgextra/i3/O1CN01alqsQS1G2oQecFYIs_!!6000000000565-2-tps-1025-573.png)
+[seata-golang](https://github.com/opentrx/seata-golang)  从今年 4 月份开始开发，到 8 月份基本实现和 java 版 [seata 1.2](https://github.com/apache/incubator-seata) 协议的互通，对 mysql 数据库实现了 AT 模式（自动协调分布式事务的提交回滚），实现了 TCC 模式，TC 端使用 mysql 存储数据，使 TC 变成一个无状态应用支持高可用部署。下图展示了 AT 模式的原理：![image20201205-232516.png]( https://img.alicdn.com/imgextra/i3/O1CN01alqsQS1G2oQecFYIs_!!6000000000565-2-tps-1025-573.png)
 
 
 后续，还有许多工作可以做，比如：对注册中心的支持、对配置中心的支持、和 java 版 seata 1.4 的协议互通、其他数据库的支持、raft transaction coordinator 的实现等，希望对分布式事务问题感兴趣的开发者可以加入进来一起来打造一个完善的 golang 的分布式事务框架。

@@ -394,7 +394,7 @@ You can use this input parameter to pass query parameters in the transaction con
 
 ## 4.2.2 @BusinessActionContextParameter
 Use this annotation to annotate the parameters that need to be passed in the transaction context. The parameters modified by this annotation will be set in BusinessActionContext.
-You can use the getActionContext method of BusinessActionContext to obtain the passed business parameter values ​​in the commit and rollback phases.
+You can use the getActionContext method of BusinessActionContext to obtain the passed business parameter values   in the commit and rollback phases.
 As follows:
 ```java
 context.getActionContext("id").toString();

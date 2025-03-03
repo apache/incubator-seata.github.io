@@ -9,13 +9,13 @@ description: 本文将向你介绍如何点击了解各版本详情和升级注�
 
 ## Seata
 
-> GitHub: https://github.com/apache/incubator-seata 
-> 
+> GitHub: https://github.com/apache/incubator-seata
+>
 > 发布说明: https://github.com/apache/incubator-seata/releases
 
 ### Seata 1.1.0 (2020-02-19)
 
- [source](https://github.com/apache/incubator-seata/archive/v1.1.0.zip) | 
+ [source](https://github.com/apache/incubator-seata/archive/v1.1.0.zip) |
  [binary](https://github.com/apache/incubator-seata/releases/download/v1.1.0/seata-server-1.1.0.zip)
 <details>
     <summary><mark>Release notes</mark></summary>
@@ -27,7 +27,7 @@ Seata 是一款开源的分布式事务解决方案，提供高性能和简单�
 此版本更新如下：
 
 ### feature：
-- [[#2200](https://github.com/apache/incubator-seata/pull/2200)] 支持 postgresql (业务侧和 TC server) 
+- [[#2200](https://github.com/apache/incubator-seata/pull/2200)] 支持 postgresql (业务侧和 TC server)
 - [[#1746](https://github.com/apache/incubator-seata/pull/1746)] 支持 httpClient 自动集成
 - [[#2240](https://github.com/apache/incubator-seata/pull/2240)] 支持自定义 Saga 恢复策略超时时间
 - [[#1693](https://github.com/apache/incubator-seata/pull/1693)] 支持 druid 类隔离加载，隔离中间件和业务侧的 druid 使用
@@ -65,12 +65,12 @@ Seata 是一款开源的分布式事务解决方案，提供高性能和简单�
 - [[#2113](https://github.com/apache/incubator-seata/pull/2113)] 修复分支 rollback 失败触发多个 TC 重试导致的并发异常
 
 
-### optimize： 
+### optimize：
 - [[#2255](https://github.com/apache/incubator-seata/pull/2255)] 优化配置项的默认配置值
 - [[#2230](https://github.com/apache/incubator-seata/pull/2230)] 统一配置项命名风格和保持 seata-all 和 spring boot starter相同默认值
 - [[#1935](https://github.com/apache/incubator-seata/pull/1935)] 重构 client 和 server RPC
-- [[#2215](https://github.com/apache/incubator-seata/pull/2215)] 优化 Saga 模式的超时处理 
-- [[#2227](https://github.com/apache/incubator-seata/pull/2227)] 分离 TC In/Outbound 接口 
+- [[#2215](https://github.com/apache/incubator-seata/pull/2215)] 优化 Saga 模式的超时处理
+- [[#2227](https://github.com/apache/incubator-seata/pull/2227)] 分离 TC In/Outbound 接口
 - [[#2033](https://github.com/apache/incubator-seata/pull/2033)] DefaultRemotingParser 逻辑优化
 - [[#1688](https://github.com/apache/incubator-seata/pull/1688)] 减少客户端无用依赖
 - [[#2134](https://github.com/apache/incubator-seata/pull/2134)] 按照事务模式区分 TC 逻辑重构
@@ -96,48 +96,48 @@ Seata 是一款开源的分布式事务解决方案，提供高性能和简单�
 - [[#2036](https://github.com/apache/incubator-seata/pull/2036)] 优化 Dubbo parser 逻辑
 - [[#2062](https://github.com/apache/incubator-seata/pull/2062)] 优化 seata-rm-datasource 模块代码风格，增加可读性
 - [[#2146](https://github.com/apache/incubator-seata/pull/2146)] 优化日志输出字符拼接
-- [[#2038](https://github.com/apache/incubator-seata/pull/2038)] 优化 common 模块代码风格，增加可读性 
-- [[#2120](https://github.com/apache/incubator-seata/pull/2120)] 修复 typos 
+- [[#2038](https://github.com/apache/incubator-seata/pull/2038)] 优化 common 模块代码风格，增加可读性
+- [[#2120](https://github.com/apache/incubator-seata/pull/2120)] 修复 typos
 - [[#2078](https://github.com/apache/incubator-seata/pull/2078)] 增加 oracle table meta cache 单测覆盖度
 - [[#2115](https://github.com/apache/incubator-seata/pull/2115)] 修复 typos
 - [[#2099](https://github.com/apache/incubator-seata/pull/2099)] 优化 tm 模块代码风格，增加可读性
 
 非常感谢以下 contributors 的代码贡献。若有无意遗漏，请报告。
 
-- [slievrly](https://github.com/slievrly) 
-- [xingfudeshi](https://github.com/xingfudeshi)   
-- [objcoding](https://github.com/objcoding)   
-- [long187](https://github.com/long187)   
-- [zjinlei](https://github.com/zjinlei)   
-- [ggndnn](https://github.com/ggndnn)  
-- [lzf971107](https://github.com/lzf971107)    
-- [CvShrimp](https://github.com/CvShrimp)   
-- [l81893521](https://github.com/l81893521)   
-- [ph3636](https://github.com/ph3636)   
-- [koonchen](https://github.com/koonchen)   
-- [leizhiyuan](https://github.com/leizhiyuan)   
-- [funky-eyes](https://github.com/funky-eyes)   
-- [caioguedes](https://github.com/caioguedes)   
-- [helloworlde](https://github.com/helloworlde)   
-- [wxbty](https://github.com/wxbty)    
-- [bao-hp](https://github.com/bao-hp)   
-- [guojingyinan219](https://github.com/guojingyinan219)   
-- [CharmingRabbit](https://github.com/CharmingRabbit)   
-- [jaspercloud](https://github.com/jaspercloud)   
-- [jsbxyyx](https://github.com/jsbxyyx)   
+- [slievrly](https://github.com/slievrly)
+- [xingfudeshi](https://github.com/xingfudeshi)
+- [objcoding](https://github.com/objcoding)
+- [long187](https://github.com/long187)
+- [zjinlei](https://github.com/zjinlei)
+- [ggndnn](https://github.com/ggndnn)
+- [lzf971107](https://github.com/lzf971107)
+- [CvShrimp](https://github.com/CvShrimp)
+- [l81893521](https://github.com/l81893521)
+- [ph3636](https://github.com/ph3636)
+- [koonchen](https://github.com/koonchen)
+- [leizhiyuan](https://github.com/leizhiyuan)
+- [funky-eyes](https://github.com/funky-eyes)
+- [caioguedes](https://github.com/caioguedes)
+- [helloworlde](https://github.com/helloworlde)
+- [wxbty](https://github.com/wxbty)
+- [bao-hp](https://github.com/bao-hp)
+- [guojingyinan219](https://github.com/guojingyinan219)
+- [CharmingRabbit](https://github.com/CharmingRabbit)
+- [jaspercloud](https://github.com/jaspercloud)
+- [jsbxyyx](https://github.com/jsbxyyx)
 
 同时，我们收到了社区反馈的很多有价值的issue和建议，非常感谢大家。
 
-**常用链接**   
+**常用链接**
 
-**Seata**: https://github.com/apache/incubator-seata   
-**Seata-Samples**: https://github.com/apache/incubator-seata-samples   
-**Release**: https://github.com/apache/incubator-seata/releases   
+**Seata**: https://github.com/apache/incubator-seata
+**Seata-Samples**: https://github.com/apache/incubator-seata-samples
+**Release**: https://github.com/apache/incubator-seata/releases
 **Seata 官网**: https://seata.apache.org/zh-cn/
 </details>
 
  ### 1.0.0 (2019-12-21)
- [source](https://github.com/apache/incubator-seata/archive/v1.0.0.zip) | 
+ [source](https://github.com/apache/incubator-seata/archive/v1.0.0.zip) |
  [binary](https://github.com/apache/incubator-seata/releases/download/v1.0.0/seata-server-1.0.0.zip)
 <details>
   <summary><mark>Release notes</mark></summary>
@@ -146,10 +146,8 @@ Seata 是一款开源的分布式事务解决方案，提供高性能和简单�
   Seata 1.0.0 GA版本重磅发布。
 
   Seata 是一款开源的分布式事务解决方案，提供高性能和简单易用的分布式事务服务。
-  
-  此版本更新如下：
 
-​      
+  此版本更新如下：
 
   ### feature：
   - [[#1966](https://github.com/apache/incubator-seata/pull/1966)] 增加client端单条消息发送方式
@@ -223,7 +221,7 @@ Seata 是一款开源的分布式事务解决方案，提供高性能和简单�
   - [[#1778](https://github.com/apache/incubator-seata/pull/1778)] 修复单元测试未清空测试资源
   - [[#1777](https://github.com/apache/incubator-seata/pull/1777)] 修复DeleteExecutor未根据数据库类型来构建前置镜像
 
-  ### optimize： 
+  ### optimize：
   - [[#2068](https://github.com/apache/incubator-seata/pull/2068)] 优化数据库连接获取
   - [[#2056](https://github.com/apache/incubator-seata/pull/2056)] 移除代码中非java doc注释
   - [[#1775](https://github.com/apache/incubator-seata/pull/1775)] 优化分支事务回滚日志输出频率
@@ -321,8 +319,8 @@ Seata 是一款开源的分布式事务解决方案，提供高性能和简单�
   同时，我们收到了社区反馈的很多有价值的issue和建议，非常感谢大家。
 
   ### 常用链接
-  - **Seata:** https://github.com/apache/incubator-seata  
-  - **Seata-Samples:** https://github.com/apache/incubator-seata-samples   
+  - **Seata:** https://github.com/apache/incubator-seata
+  - **Seata-Samples:** https://github.com/apache/incubator-seata-samples
   - **Release:** https://github.com/apache/incubator-seata/releases
 
 </details>
